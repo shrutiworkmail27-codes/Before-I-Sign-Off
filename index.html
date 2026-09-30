@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before I Sign Off | Eureka Equity Desk</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* --- CORE SETTINGS --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #05050a;
+            color: #ffffff;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            cursor: none; 
+        }
+
+        /* --- 1. CUSTOM CURSOR --- */
+        @media (pointer: coarse) { body { cursor: auto; } .custom-cursor { display: none; } }
+        .cursor-dot {
+            position: fixed; top: 0; left: 0; width: 4px; height: 4px;
+            background: #fff; border-radius: 50%; pointer-events: none;
+            z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s;
+        }
+        .cursor-ring {
+            position: fixed; top: 0; left: 0; width: 34px; height: 34px;
+            border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 50%; pointer-events: none;
+            z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+        }
+        .clicking .cursor-ring { width: 16px; height: 16px; background: rgba(168, 85, 247, 0.2); }
+
+        /* --- 2. THE EMAIL SCREEN --- */
+        #email-screen {
+            position: fixed; inset: 0; background-color: #ffffff; z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.5s, filter 1.5s;
+            cursor: auto;
+        }
+        .email-screen-exit { transform: scale(1.1); opacity: 0; filter: blur(10px); pointer-events: none; }
+        .email-content { font-family: Arial, sans-serif; color: #202124; font-size: 15px; line-height: 1.6; max-width: 600px; padding: 20px; }
+        .email-link { color: #1a73e8; text-decoration: underline; font-weight: 500; cursor: pointer; transition: color 0.2s; }
+        .email-link:hover { color: #1557b0; }
+
+        /* --- 3. AMBIENT NEBULA & PARTICLES --- */
+        .nebula-bg {
+            position: fixed; top: 50%; left: 50%; width: 100vw; height: 100vh;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at 30% 40%, rgba(88, 28, 135, 0.3) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 60%, rgba(30, 58, 138, 0.25) 0%, transparent 50%);
+            filter: blur(60px); z-index: -2; opacity: 0; transition: opacity 3s ease-in-out;
+            animation: breathe 10s ease-in-out infinite alternate;
+        }
+        @keyframes breathe {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        #particles-js {
+            position: fixed; inset: 0; z-index: -1; opacity: 0; transition: opacity 2.5s; pointer-events: none;
+        }
+
+        /* --- THE EQUITY TICKER --- */
+        .ticker-bar {
+            position: fixed; top: 0; left: 0; width: 100%; background: rgba(5, 5, 10, 0.8);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 11px;
+            color: #9ca3af; padding: 6px 0; z-index: 50; overflow: hidden; opacity: 0; transition: opacity 2s;
+        }
+        .ticker-content { display: inline-block; white-space: nowrap; animation: tickerScroll 35s linear infinite; }
+        @keyframes tickerScroll { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+        /* --- 4. HIGH CONTRAST GLASS CARDS --- */
+        .reveal-element { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .site-active .reveal-element { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- 5. MODALS & EFFECTS --- */
+        .modal-glass {
+            background: rgba(15, 15, 20, 0.95); backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(168, 85, 247, 0.2);
+            animation: modalPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes modalPop { 0% { opacity: 0; transform: scale(0.95) translateY(15px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+
+        .typewriter-cursor::after { content: '|'; animation: blink 1s step-end infinite; color: #a855f7; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .market-emoji {
+            position: fixed; font-size: 24px; z-index: 999; pointer-events: none;
+            animation: floatEmoji 3s ease-in forwards;
+        }
+        @keyframes floatEmoji { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(var(--move-y)) scale(1.5); } }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+
+        /* --- 6. MARQUEE TICKER ANIMATIONS --- */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-reverse {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 35s linear infinite;
+        }
+        .animate-marquee-reverse {
+            display: flex;
+            width: max-content;
+            animation: marquee-reverse 35s linear infinite;
+        }
+        .card-specular {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), 0 12px 32px -8px rgba(0, 0, 0, 0.7);
+        }
+        .card-specular:hover {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+            box-shadow: inset 0 1px 2px 0 rgba(216, 180, 254, 0.4), 0 20px 40px -10px rgba(147, 51, 234, 0.35);
+        }
+        /* Tactile Envelope & Wax Seal Styling */
+        .envelope-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+        .envelope-card:hover {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.04) 100%);
+            box-shadow: 0 20px 35px -10px rgba(168, 85, 247, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .wax-seal {
+            background: radial-gradient(circle at 35% 35%, #c084fc 0%, #7e22ce 60%, #3b0764 100%);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.4), inset 0 -2px 3px rgba(0, 0, 0, 0.6);
+        }
+        .wax-seal {
+            background: radial-gradient(circle at 35% 30%, #a855f7 0%, #6b21a8 55%, #3b0764 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.45), 
+                        inset 0 -2px 3px rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(216, 180, 254, 0.35);
+        }
+
+        /* Embosses the logo so it appears pressed into the wax */
+        .stamp-graphic {
+            filter: brightness(0) invert(1) drop-shadow(0 -0.5px 0.5px rgba(0,0,0,0.8));
+            opacity: 0.9;
+        }
+        #email-screen {
+            position: fixed;
+            inset: 0;
+            background-color: #f0f0ff;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s, filter 1.2s;
+            cursor: auto;
+        }
+
+        .email-screen-exit {
+            transform: scale(1.06);
+            opacity: 0;
+            filter: blur(10px);
+            pointer-events: none;
+        }
+        #cards-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important; /* Forces exactly 4 cards in each horizontal row */
+            gap: 28px !important; /* Adds generous breathing room between them */
+            max-width: 1280px !important;
+            margin: 0 auto !important;
+            padding: 30px 16px !important;
+        }
+
+        /* Make each individual card taller and bigger */
+        #cards-grid > * {
+            min-height: 240px !important;
+            padding: 24px !important;
+        }
+        /* Teammate Name: Bold, Crisp White, Larger */
+        #cards-grid h3,
+        #cards-grid .recipient-name {
+            color: #ffffff !important;
+            font-size: 1.25rem !important; /* ~20px */
+            font-weight: 700 !important;
+            letter-spacing: -0.01em !important;
+            line-height: 1.3 !important;
+        }
+
+        /* MEMO Label: Small, Muted Grey with Opacity, Monospace */
+        #cards-grid .memo-label,
+        #cards-grid span:first-child,
+        #cards-grid .card-footer span {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+            font-size: 0.6875rem !important; /* 11px */
+            letter-spacing: 0.12em !important;
+            color: rgba(161, 161, 170, 0.6) !important; /* zinc-400 with 60% opacity */
+            text-transform: uppercase !important;
+            font-weight: 500 !important;
+        }
+
+        /* Envelope Top Flap: Restore subtle dark glass look instead of light purple */
+        #cards-grid .envelope-flap,
+        #cards-grid [class*="clip-path"],
+        #cards-grid svg polygon {
+            fill: rgba(255, 255, 255, 0.04) !important;
+            background-color: rgba(255, 255, 255, 0.04) !important;
+            border-color: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        /* Arrow: Subtle purple */
+        #cards-grid .card-footer span:last-child,
+        #cards-grid .arrow-icon {
+            color: rgba(192, 132, 252, 0.7) !important;
+            font-size: 0.85rem !important;
+        }
+    </style>
+</head>
+<body class="selection:bg-purple-500/30 selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor cursor-dot" id="cursor-dot"></div>
+    <div class="custom-cursor cursor-ring" id="cursor-ring"></div>
+
+    <!-- The Desk Ticker (Punchy, Sassy & Market-Hardened) -->
+    <div id="desk-ticker" class="ticker-bar py-3.5 text-base sm:text-lg font-mono tracking-wider border-y border-white/10 bg-[#080911]/95 backdrop-blur-md overflow-hidden whitespace-nowrap select-none">
+        <div class="ticker-content inline-block">
+            EUREKA DESK INTERMISSION &nbsp;&nbsp;•&nbsp;&nbsp;
+            VALUATION DCFs <span class="text-rose-400 font-bold">▲ BALANCED BY HOPE</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            HARDCODED PLUGS <span class="text-amber-400 font-bold">◈ CLASSIFIED</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            3:29 PM SPRINT <span class="text-emerald-400 font-bold">▲ RECORD HIGH</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            DESK CHAI TAB <span class="text-rose-400 font-bold">▲ FOREVER UNPAID</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            TERMINAL PATIENCE <span class="text-rose-400 font-bold">▼ 404 NOT FOUND</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            MANAGEMENT GUIDANCE <span class="text-amber-400 font-bold">▼ FICTION</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            MY CHAIR <span class="text-purple-400 font-bold">★ RESERVED TILL RETURN</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            EXCEL HEURISTICS <span class="text-rose-400 font-bold">▼ EXPIRED</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            AUDIT TRAIL <span class="text-rose-400 font-bold">▼ DELETED BEFORE LOGOUT</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            TEMPORARY PEACE <span class="text-rose-400 font-bold">▼ EXPIRING SOON</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            FULL-TIME COMEBACK <span class="text-purple-400 font-bold">★ NON-NEGOTIABLE</span>
+        </div>
+    </div>
+
+    <!-- Floating Guestbook Button -->
+    <button id="guestbook-btn" onclick="openGuestbook()" class="fixed bottom-6 right-6 z-40 glass-card px-5 py-3 rounded-full text-sm font-medium text-gray-200 hover:text-white flex items-center gap-2 hidden opacity-0 transition-opacity duration-1000 border-purple-500/30">
+        📝 Sign Guestbook
+    </button>
+
+    <!-- PAGE 1: The Email Screen -->
+    <<!-- PAGE 1: Executive Email Client Screen -->
+<div id="email-screen" class="fixed inset-0 bg-[#05050a] flex items-center justify-center p-4 sm:p-6 z-[1000] select-none">
+    
+    <!-- Ambient Background Backlight -->
+    <div class="absolute w-[600px] h-[400px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- The Email Window -->
+    <div class="relative w-full max-w-2xl bg-[#0e0f17]/90 border border-white/10 rounded-2xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] overflow-hidden backdrop-blur-2xl transition-all duration-300">
+        
+        <!-- Window Top Header Bar -->
+        <div class="px-5 py-3.5 bg-white/[0.02] border-b border-white/[0.06] flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-[#ff5f56]/90 border border-[#e0443e]"></span>
+                <span class="w-3 h-3 rounded-full bg-[#ffbd2e]/90 border border-[#dea123]"></span>
+                <span class="w-3 h-3 rounded-full bg-[#27c93f]/90 border border-[#1aab29]"></span>
+                <span class="ml-3 text-[11px] font-mono tracking-wider text-zinc-400 uppercase">Eureka Research Desk &bull; Internal Mail</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-mono text-zinc-500">
+                <span>Inbox</span>
+                <span>&bull;</span>
+                <span class="text-zinc-400">Today, 3:30 PM</span>
+            </div>
+        </div>
+
+        <!-- Subject & Meta Section (Clean Single Line) -->
+        <div class="px-6 py-5 border-b border-white/[0.06]">
+            <!-- Subject in One Line -->
+            <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white whitespace-nowrap overflow-hidden text-ellipsis mb-3">
+                Sign-off &amp; Intermission &mdash; Industrial Training
+            </h1>
+
+            <!-- Sender / Recipient Metadata -->
+            <div class="space-y-1 text-xs text-zinc-400 font-mono">
+                <div class="flex items-center gap-2">
+                    <span class="text-zinc-500 w-12">From:</span>
+                    <span class="text-zinc-200">Shruti Kumari</span>
+                    <span class="text-zinc-500">&lt;shruti.workmail27@gmail.com&gt;</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-zinc-500 w-12">To:</span>
+                    <span class="text-zinc-200">Eureka &amp; Research Team</span>
+                    <span class="text-zinc-500">&lt;research@eurekasec.com&gt;</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Email Body -->
+        <div class="p-6 sm:p-8 space-y-5 text-zinc-300 text-base leading-relaxed font-light">
+            <p class="font-normal text-white text-lg">
+                Hi everyone,
+            </p>
+            
+            <p>
+                My industrial training journey with Eureka officially reaches its pause point today.
+            </p>
+
+            <p>
+                That said, consider this an intermission rather than a goodbye, just a necessary pause to lock in for CA Finals prep so I can rejoin the team full-time on the other side. 
+            <p>
+            Before I clear my screen, I’ve penned down a few words for each of you.
+            </p>
+
+            <!-- Refined Action Button -->
+            <div class="pt-3 pb-2">
+                <button type="button" onclick="enterExperience()" class="group inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-sm sm:text-base shadow-[0_8px_25px_rgba(147,51,234,0.35)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer border border-purple-400/30">
+                    <span>View Personal Memos</span>
+                    <span class="text-base transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+                </button>
+            </div>
+
+            <!-- Signature Section -->
+            <div class="pt-6 border-t border-white/[0.06] flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-zinc-500 uppercase tracking-wider font-mono mb-1">Warm regards,</p>
+                    <p class="text-base font-semibold text-white tracking-tight">Shruti</p>
+                    <p class="text-xs text-zinc-400 font-mono mt-0.5">CA Industrial Trainee &bull; Eureka Stock &amp; Share Broking</p>
+                </div>
+                
+                <!-- Subtle Eureka Desk Crest in Signature -->
+                <div class="w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center p-2 opacity-60">
+                    <img src="images-removebg-preview (1).png" alt="Eureka" class="w-full h-full object-contain filter brightness-0 invert" />
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+    <!-- Rich Nebula Background -->
+    <div class="nebula-bg" id="nebula"></div>
+    <div id="particles-js"></div>
+
+    <!-- MAIN SITE CONTAINER -->
+    <main id="main-site" class="w-full max-w-[90rem] mx-auto px-6 lg:px-12 pt-16 hidden perspective-1000">
+        
+        <!-- SECTION 1: HERO -->
+        <section class="relative min-h-[85vh] flex flex-col lg:flex-row items-center justify-between py-10">
+            <div class="w-full lg:w-1/2 lg:pr-16 z-10">
+                <h1 class="reveal-element text-6xl md:text-[6.5rem] font-bold tracking-tight mb-8 text-white leading-tight drop-shadow-lg">
+                    Before I <br> Sign Off.
+                </h1>
+                <div class="space-y-6 text-gray-200 text-lg md:text-xl font-light leading-relaxed max-w-2xl drop-shadow-md">
+                    <p class="reveal-element delay-1">
+                        Closing my terminal tabs before Excel finds another reason to freeze on me. 
+                    </p>    
+                        Handing over my models and stepping away for a bit, but don't celebrate just yet. This a strategic market pause rather than an exit. 
+                    </p>
+                    <p class="reveal-element delay-2">
+                        Thank you for the patience, the guidance, and the constant banter between market hours.
+                    </p>
+                        Don’t get too comfortable with the desk being quiet. See you all very soon.
+                    </p>
+                </div>
+                <div class="reveal-element delay-3 flex flex-wrap gap-3 mt-10">
+                    <div class="glass-card px-4 py-2 rounded-full text-xs font-medium text-purple-200 tracking-wide border-purple-500/30">📈 Models Built: Too Many</div>
+                    <div class="glass-card px-4 py-2 rounded-full text-xs font-medium text-purple-200 tracking-wide border-purple-500/30">☕ Endless Desk Teas</div>
+                    <div class="glass-card px-4 py-2 rounded-full text-xs font-medium text-purple-200 tracking-wide border-purple-500/30">📞 Earnings Calls Survived</div>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-1/2 mt-16 lg:mt-0 flex flex-col justify-center items-center lg:items-end z-10">
+    <div class="reveal-element delay-3 glass-card p-2.5 rounded-2xl transition-all duration-500 w-full max-w-md xl:max-w-lg shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-white/10 group hover:border-purple-500/30">
+        <img src="my-photo.png" alt="Memories at Eureka" class="rounded-xl w-full h-[400px] object-cover opacity-95 group-hover:opacity-100 transition-opacity">
+    </div>
+</div>
+</section>
+
+        <!-- SECTION 2: DESK TRUTHS & CORE LEARNINGS -->
+        <section class="min-h-[50vh] py-20 flex flex-col justify-center items-center text-center relative z-10 border-t border-white/5 mt-10">
+            <p class="text-xs font-bold tracking-[0.25em] text-purple-400 uppercase mb-3">Field Notes From Industrial Training</p>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white tracking-tight mb-12">Unwritten Laws of the Research Desk</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl px-4 text-left">
+                
+                <!-- Rule 01 -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-mono font-bold text-purple-300/40">01</span>
+                            <span class="text-[10px] tracking-wider uppercase font-semibold text-gray-400">Desk Mechanics</span>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2">The "F9" Reflex</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed">
+                            Hitting <code class="text-purple-300 bg-white/5 px-1 py-0.5 rounded font-mono">Ctrl + S</code> once is basic finance. Hitting it four times in rapid succession while staring blankly at the screen is trauma caused by unsaved Excel workbooks.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Rule 02 -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-mono font-bold text-purple-300/40">02</span>
+                            <span class="text-[10px] tracking-wider uppercase font-semibold text-gray-400">Email Etiquette</span>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2">"Per My Last Email"</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed">
+                            "Noted with thanks" means read and ignored. "Re-attaching for visibility" means look before you ask. "As discussed" translates directly to: <em>I have documented this so you cannot deny it later.</em>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Rule 03 -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-mono font-bold text-purple-300/40">03</span>
+                            <span class="text-[10px] tracking-wider uppercase font-semibold text-gray-400">Floor Survival</span>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2">The "Busy Screen" Armor</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed">
+                            If you look confused, someone assigns you ad-hoc research work. If you keep a 14-tab financial model and three TradingView candlestick charts open on full brightness, you are completely untouchable.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Rule 04 -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-mono font-bold text-purple-300/40">04</span>
+                            <span class="text-[10px] tracking-wider uppercase font-semibold text-gray-400">Biological Law</span>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2">Post-Lunch Liquidity</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed">
+                            Market volatility between 2:00 PM and 3:00 PM is directly inversely proportional to human brain capacity following lunch. No breakthrough valuations have ever occurred in this window.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: THE TICKER DIRECTORY -->
+        <!-- SECTION 3: THE NOTES BOARD -->
+        <section id="grid-section" class="min-h-[70vh] py-16 flex flex-col justify-center relative z-10 border-t border-white/5">
+            <div class="max-w-6xl mx-auto px-4 w-full">
+                <h2 class="text-3xl font-bold tracking-tight text-white mb-2">A few words, for each of you.</h2>
+                <p class="text-sm md:text-base text-zinc-400 mb-10 max-w-2xl leading-relaxed">
+                    My industrial training wraps up here, but the journey doesn't end. Signing off for Finals prep, and looking forward to returning to the floor once the prefix is earned.
+                </p>
+
+                <!-- Static Square Cards Grid -->
+                <div id="cards-grid" style="display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 24px !important; max-width: 1200px; margin: 0 auto; padding: 20px;">
+                <!-- Cards injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: MARKET CLOSE FOOTER -->
+        <footer class="py-20 border-t border-white/5 text-center relative z-10 mt-10">
+            <!-- "Intermission, Not Goodbye" Status Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/25 mb-6 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-violet-400 animate-pulse"></span>
+                <span class="text-xs font-medium text-violet-300 tracking-wide uppercase">That's the wrap</span>
+            </div>
+
+            <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-3">
+                Intermission, Not Goodbye.
+            </h2>
+            
+            <p class="text-sm md:text-base text-zinc-400 max-w-lg mx-auto leading-relaxed mb-8">
+                Positions closed. Models saved. Handover complete.<br>
+                Signing off for CA Finals prep.<br>
+                See you all on the other side as a full-time teammate!
+            </p>
+
+            <!-- Connect Links -->
+            <div class="flex justify-center gap-4">
+                <a href="#" class="px-5 py-2 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-zinc-300 hover:text-white hover:border-violet-400/50 hover:bg-violet-500/10 transition-all duration-200">
+                    LinkedIn
+                </a>
+                <a href="mailto:your.email@example.com" class="px-5 py-2 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-zinc-300 hover:text-white hover:border-violet-400/50 hover:bg-violet-500/10 transition-all duration-200">
+                    Email
+                </a>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Modal Overlay (For Personal Notes) -->
+<div id="modal-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 z-50 transition-opacity">
+
+    <div id="modal-capture-area" class="modal-glass w-full max-w-2xl rounded-2xl p-8 md:p-10 relative flex flex-col h-[90vh] max-h-[90vh] overflow-hidden">
+
+        <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+            <span class="text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase">Personal Note</span>
+        </div>
+
+        <h2 id="modal-name" class="text-3xl md:text-4xl font-semibold text-white mb-6 tracking-tight">
+            Name
+        </h2>
+
+        <div id="modal-message" class="text-gray-200 text-base md:text-lg leading-relaxed mb-8 font-light min-h-0 flex-1 overflow-y-auto whitespace-pre-line pr-3">
+        </div>
+
+        <div class="mt-auto pt-6 border-t border-white/10 flex-shrink-0" id="reply-section">
+            <p class="text-[10px] font-bold tracking-[0.1em] text-gray-400 uppercase mb-3">
+                Advice for CA Finals
+            </p>
+
+            <form id="reply-form" onsubmit="submitReply(event)" class="flex gap-2">
+                <input type="text" id="reply-input" placeholder="Leave a blessing or advice..." class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-purple-400" required>
+
+                <button type="submit" id="reply-btn" class="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors">
+                    Send
+                </button>
+            </form>
+        </div>
+
+        <button onclick="downloadNote()" id="download-btn" title="Save as Image" class="absolute top-8 right-16 text-gray-400 hover:text-white transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 0010-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+        </button>
+
+        <button onclick="closeModal()" id="close-btn" class="absolute top-8 right-8 text-gray-400 hover:text-white transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+    </div>
+</div>
+
+    <!-- Guestbook Overlay (For Open Floor) -->
+    <div id="guestbook-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="modal-glass w-full max-w-lg rounded-2xl p-8 relative flex flex-col">
+            <h2 class="text-2xl font-semibold text-white mb-3 tracking-tight">Open Floor</h2>
+            <p class="text-gray-300 text-xs mb-6 leading-relaxed">Didn't find your name on the board? Leave a piece of advice or a sign-off note for my CA finals journey here.</p>
+            
+            <form onsubmit="submitGuestbook(event)" class="flex flex-col gap-3">
+                <input type="text" id="gb-name" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-purple-400" required>
+                <textarea id="gb-msg" placeholder="Your message..." rows="3" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-purple-400 resize-none" required></textarea>
+                <button type="submit" id="gb-btn" class="bg-white text-black w-full py-2.5 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Sign Guestbook</button>
+            </form>
+
+            <button onclick="closeGuestbook()" class="absolute top-6 right-6 text-gray-400 hover:text-white">✕</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Custom Cursor Logic ---
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+        
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px';
+            setTimeout(() => { cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; }, 50);
+        });
+        window.addEventListener('mousedown', () => document.body.classList.add('clicking'));
+        window.addEventListener('mouseup', () => document.body.classList.remove('clicking'));
+
+        // --- Easter Egg Logic (Bull/Bear) ---
+        let keyBuffer = '';
+        window.addEventListener('keydown', (e) => {
+            keyBuffer += e.key.toLowerCase();
+            if(keyBuffer.length > 10) keyBuffer = keyBuffer.slice(-10);
+            
+            if(keyBuffer.includes('bull')) { triggerMarketEffect('bull'); keyBuffer = ''; }
+            if(keyBuffer.includes('bear')) { triggerMarketEffect('bear'); keyBuffer = ''; }
+        });
+
+        function triggerMarketEffect(type) {
+            for(let i=0; i<20; i++) {
+                const el = document.createElement('div');
+                el.className = 'market-emoji';
+                el.innerText = type === 'bull' ? (Math.random() > 0.5 ? '📈' : '▲') : (Math.random() > 0.5 ? '📉' : '▼');
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = type === 'bull' ? '100vh' : '-50px';
+                el.style.color = type === 'bull' ? '#22c55e' : '#ef4444';
+                el.style.setProperty('--move-y', type === 'bull' ? '-120vh' : '120vh');
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 3000);
+            }
+        }
+
+        // --- Core Site Logic ---
+        let typingTimeout;
+
+        // Initialize Clean Particles
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80 },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 2, "random": true },
+                "line_linked": { "enable": false },
+                "move": { "enable": true, "speed": 0.5, "direction": "top", "straight": false, "out_mode": "out" }
+            },
+            "interactivity": { 
+                "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": false } },
+                "modes": { "bubble": { "distance": 200, "size": 4, "duration": 2, "opacity": 1, "speed": 3 } }
+            },
+            "retina_detect": true
+        });
+
+        function enterExperience(autoScrollTo = null) {
+            const emailScreen = document.getElementById('email-screen');
+            const mainSite = document.getElementById('main-site');
+            
+            emailScreen.classList.add('email-screen-exit');
+            
+            setTimeout(() => {
+                emailScreen.style.display = 'none';
+                mainSite.classList.remove('hidden');
+                
+                document.getElementById('nebula').style.opacity = '1';
+                document.getElementById('particles-js').style.opacity = '1';
+                document.getElementById('desk-ticker').style.opacity = '1';
+                
+                const gbBtn = document.getElementById('guestbook-btn');
+                gbBtn.classList.remove('hidden'); 
+                setTimeout(() => gbBtn.classList.remove('opacity-0'), 100);
+
+                void mainSite.offsetWidth;
+                mainSite.classList.add('site-active');
+
+                if(autoScrollTo) {
+                    setTimeout(() => {
+                        document.getElementById('grid-section').scrollIntoView({ behavior: 'smooth' });
+                        openModal(autoScrollTo);
+                    }, 800);
+                }
+            }, 1400); 
+        }
+
+        const teamData = [
+            {
+                name: "Rakesh Sir",
+                note: "Sir, having my CA industrial training under your name has been one of the most meaningful parts of my CA journey. You did not just teach me about the markets. You taught me how to look beyond the market, beyond textbooks, and beyond what is written in a report. So many of the things I have learned from you are things I could never have learned from a book. You have always told me, 'Whenever you have a doubt, just come to me,' and I think I have taken that invitation very seriously because I have walked into your room with every kind of question imaginable (sometimes illogical too). But, no matter how complicated the question was, you always had a way of explaining it so simply that it suddenly made complete sense. But what I will value even more is the comfort I have always had with you. I could talk to you about literally anything, whether it was work, my career, some problem in the office, or just something I was confused about in life. You have always made me feel that I have someone I can go to without having to think twice. You constantly made sure that I was included in good work and given the right exposure because you wanted me to learn as much as possible. The way you would tell everyone that 'ye bachha log h mera' and that you had to look after us may have sounded casual, but I always felt that you genuinely meant it. There were even times when something was bothering me at work and you noticed it (seat change pbv) or asked me about it before I had said anything. Those little things told me a lot. When I look back, I know I will remember the knowledge, the markets and the work, but I will remember your guidance and the feeling of always having someone in my corner even more. Thank you for everything, Sir. I really hope, I will make sure I give my absolute best and make you proud, Sir."
+            },
+
+            {
+                name: "Anup Sir",
+                note: "Anup Sir, looking back at this entire year, I realise how much of the professional I have become today was shaped by you.\n\nI still remember the beginning, when you used to give me all those data assignments and repetitive work. At that time, I used to wonder why I was doing so much copy paste work and when I would finally get to do the “real” analysis. Then you explained your Kung Fu training example to me. You told me that in the beginning, you may hate the repetitive exercises, but those are exactly the things that build the foundation for everything that comes later. I did not completely understand it then, but I understand it now.\n\nSlowly, the work changed. You started giving me sector work, analysis, research assignments and more responsibility. Every stage prepared me for the next one, and I realised that you were not simply giving me different kinds of work. You were building me step by step.\n\nBut what made your training different was that you never wanted me to stop at just doing research. You constantly pushed me to enhance myself and find better ways of working. You encouraged me to explore AI, agentic AI and automation and actually use them in research instead of just reading about them. You gave me the freedom to experiment, work on different projects and figure out how technology could make research smarter and more efficient. Every time I came up with some new AI idea, instead of asking why I was doing something beyond my usual work, you encouraged me to continue and take it further. That encouragement made me realise that learning does not always mean learning what everyone else is already doing. Sometimes it means trying to build something that does not exist yet.\n\nYou took the raw version of Shruti and slowly brought out a much better version of her. You were like a jeweller who somehow managed to find the diamond hidden inside the rough stone. And then there were all those small things you used to say: “You will do it.” “You will see, you will do it.” “You have done better than my expectations.” “Your memory is very good.” “Study properly and become a CA.” You may have said them casually, but I carried those words with me every time I doubted myself.\n\nAnd beyond all the work, I could talk to you about family, studies, struggles, life and almost anything that was bothering me. Whenever something went wrong in the office, I knew there was always someone I could go to.\n\nHaving a manager who does not just assign work but actually thinks about how to train you, pushes you to improve yourself, gives you the freedom to explore and still believes in you when you are figuring things out is something I feel very lucky to have experienced. Having a manager like you was genuinely a blessing for me.\n\nThank you for being my trainer, my mentor, my problem solver and the person who kept pushing me to become better than the version of myself that walked into Eureka. A huge part of what I carry forward from this training will always have your influence behind it."
+            },
+
+            {
+                name: "Akhil Bhaiya",
+                note: "Akhil Bhaiya, I always noticed how you would check what project I was working on and what I was getting to learn from it. It never felt like you were just checking on work. You actually cared about whether I was getting good exposure and trying something new.\n\nI especially remember showing you all the AI, automation and agentic AI ideas I was working on. You patiently listened to everything and always encouraged me to keep experimenting and exploring more. You never made me feel that I was trying something unnecessary or different. Instead, you gave me the confidence to keep going.\n\nThank you for always looking out for my work and for giving me the freedom to explore beyond the usual. I really appreciated having someone like you who always wanted me to do more."
+            },
+
+            {
+                name: "Nitisha <3",
+                note: "Brooo, having you as my desk partner was honestly one of the best parts of my time at Eureka. Pr phir uk. or phir kya hmare yaha aishwarya aayiiiiii - our seats eventually got changed because apparently (according to cctv) we talked too much (ayy lrki bahot chapar chapar krti ho). We still do not understand how anyone decided that (ye raaj bhi usi k sath chala gya), because half the time we were talking about work, projects, ideas or some random problem we were trying to solve.\n\nBut it was never just about sitting together. We somehow ended up doing almost everything together (Gadar macha dii). Eating together, going downstairs together, roaming around the office, discussing some completely random topic and laughing over things that probably would not even make sense to anyone else. Some of my favourite memories are not even about any particular project. They are just those random everyday moments when we would start talking about something and somehow end up laughing for no reason.\n\nAnd of course, we actually made each other better too (even when I am already huhh). You taught me technical analysis, stock picking and so many things about the market that I did not understand properly before. I got to introduce you to coding, AI agents, automation and sectoral research. Every project somehow became our little testing lab. I would build something and you would test it. You would work on something and I would test it. We would find mistakes, question each other's ideas, fix things and start again (ese kese nai banega).\n\nSomewhere between all of that, you became the person I could talk to about literally anything without having to filter myself (aapko sunna hi prega). You have seen my good days (null), confused days (full), crazy ideas and probably far too many random thoughts. You have somehow managed to debug not just my projects but me as well.\n\nSo I think this little piece of code describes us pretty well.\n\nwhile (life.continues()) {\n    nitisha.debug(shruti);\n    shruti.debug(nitisha);\n    friendship.grow();\n}\n\nI may leave the desk, but I wish we are deployed for forever.\n\nI am going to miss having my favourite debugger.\n\n See you soon. Very soon (at Refinery)"
+            },
+
+            {
+                name: "Ankur Da",
+                note: "Ankur Da, I think it will always be a little special that I was the very first trainee you inducted into Eureka. We joined around the same time, so in a funny way, while you were figuring out your journey here, I was figuring out mine too. That made those first few days feel a little less unfamiliar.\n\nFrom the beginning, you were always so friendly and approachable that I never really felt like I was talking to HR. You would actually ask how everything was going, whether I was comfortable and if there was anything I needed, rather than just checking whether the formalities were complete. You made those small conversations feel very easy, especially when everything around me was still new.\n\nYou also handled all my paperwork and joining formalities so carefully that I never had to keep wondering whether I had missed something. And whenever I came to you with a doubt, even when it was something small or completely random, you never made me feel like I was asking a silly question. You would patiently explain it and make sure I understood it properly.\n\nSince you were the person who handled so much of my journey right from the beginning, I think I will always associate you with my first days at Eureka. You were quite literally there at the starting point of this whole chapter for me, and you made those first steps much easier than they could have been.\n\nThank you, Ankur Da, for always being approachable, for patiently answering all my random doubts and for making the whole beginning feel comfortable. I am really glad that the first trainee you inducted happened to be me."
+            },
+
+            {
+                name: "Moubani Dii",
+                note: "Moubani Dii, having you around always felt a little like having an elder sister at work who would quietly take care of things before they became our headache. There were so many small office problems that we probably never even had to think about because you were already handling them. Whether it was leave issues, washroom problems, some workplace situation or one of those random things that only we girls understand, somehow you were always there to sort it out.\n\nAnd then there were my reports. You would actually go through the reports I published and check them properly before they went out. That always gave me an extra bit of confidence because I knew someone was looking at my work carefully and would catch something if I had missed it.\n\nThank you for always looking out for me, handling all those things I probably would not have known how to handle myself, and being that elder sister I could count on at work."
+            },
+
+            {
+                name: "Sayandeep Bhaiya",
+                note: "Sayandeep Bhaiya, even though we did not get the chance to talk very often or work closely together, I have always found you to be such a genuinely good and well mannered person. Sometimes you do not need a long list of memories to appreciate someone. The way a person behaves every day, the way they speak to people and the kind of energy they bring to the workplace says enough. I always found you polite, respectful and easy to be around. I am glad that our paths crossed during my training and that I got to share the same workplace with you. Wishing you lots of happiness, success and good things ahead. It was genuinely nice knowing you, Bhaiya."
+            },
+
+            {
+                name: "Debansu Bhaiya",
+                note: "Debansu Bhaiya, I think one of the nicest things about talking to you was that it was always so easy. You have this very calm and friendly way of talking that somehow makes even a random conversation feel comfortable. You were always approachable, always willing to listen and always ready to help, whether it was something related to work or something completely random.\n\nI especially enjoyed showing you all the AI agents and random things I kept building. I would come to you with some new idea, explain the whole thing and probably get carried away while explaining it, and you would patiently listen to everything. Then came your classic “Shabaash, lage raho,” followed by some suggestion about how I could make it even better. You never made me feel that I was wasting time experimenting with something different. You actually encouraged me to keep going.\n\nAnd I still cannot forget your advice to build something that nobody has built before. I remember thinking, Bhaiya, if nobody has built it before, how exactly am I supposed to know how to build it? That sentence genuinely stayed with me, though I am still trying to figure out what exactly you expected me to invent.\n\nBut some of my favourite memories with you are actually outside all these work conversations. Since you live near my home, there were times when you would drop me home on your bike, and those rides became their own little conversations. I will especially remember that election day when we had office and you made sure I got picked up and dropped back safely. It was such a simple thing, but it showed the kind of person you are. You notice these things and make sure the other person is okay.\n\nSo whether it was listening to my latest AI experiment, giving me an impossible challenge to build something no one has built, helping me with something at work or simply making sure I got home safely, you have always been someone I could count on.\n\nThank you, Bhaiya, for all the encouragement, all the conversations, all the “Shabaash, lage raho” moments and for being so genuinely thoughtful throughout. I am really glad that somewhere between all the work, AI experiments and rides home, I got to know you beyond just being someone from the office. You are genuinely a great person, and I will definitely miss having you around."
+            },
+
+            {
+                name: "Rishab Bhaiya",
+                note: "Rishab Bhaiya, our relationship was never really a typical colleague relationship. You were basically the elder brother I got to annoy every single day. I have teased you probably more than I should have, and I am pretty sure I have even punched you a few times, yet somehow you always remained calm, well mannered and patient with me. I will never forget the phase when I completely lost my voice because of a cold and you decided it was the perfect opportunity to torture me with 'Come on, speak now, speak now.' The moment my voice finally came back, I think I made enough noise to compensate for all the silent days. And then there was our classic automation conversation. I would tell you that I was going to automate your EOD report and you would immediately say that it would cost you your job and tell me to leave it alone. That was always hilarious. But honestly, one of the sweetest things I will remember is when I told you that my tenure was coming to an end and you immediately started saying, 'Don't go, extend it, don't leave.' That genuinely made me realise how much our little sibling bond had grown. I am going to miss irritating you, teasing you and randomly showing up with some new idea. Thank you for always being such a good sport and such a good brother figure. And yes, your EOD report is still in danger of being automated someday."
+            },
+
+            {
+                name: "Subbu Bhaiya",
+                note: "Subbu Bhaiya, one thing I will definitely remember about you is how your phone calls could suddenly turn the entire floor into a room full of confused spectators. The moment you started speaking rapidly in Tamil with your friends, it honestly sounded like some highly classified encrypted communication that none of us had any chance of understanding. And of course, we could not let that opportunity go to waste. Then there was your famous temper, especially the part where your ears would literally turn red whenever you got angry. Naturally, that became another thing we could never stop teasing you about. But behind all the teasing, you have always been a genuinely good person, and I have really enjoyed having you around. Thank you for all the laughs, the random moments and the personality you brought to the department. I hope life gives you plenty of reasons to smile and considerably fewer reasons to turn those ears red."
+            },
+
+            {
+                name: "Subhodeep Bhaiya",
+                note: "Subhodeep Bhaiya, although we did not get many opportunities to interact closely during my training, I have always found you to be a genuinely good and well mannered person. Sometimes there are people you may not speak to every day, but you still remember them positively because of the way they carry themselves and treat everyone around them. That is how I will remember you. It was nice sharing the same workplace with you and being part of the same team during this phase of my journey. Wishing you lots of success, happiness and good experiences ahead. I am glad our paths crossed at Eureka."
+            },
+
+            {
+                name: "Kaushik Sir",
+                note: "Kaushik Sir, being the senior most person in our department, you naturally carry so much experience and wisdom, but what I will remember most about you is actually how warm and childlike you could be when it came to sharing happiness with everyone. I still remember your birthday when you brought homemade cake for all of us, arranged snacks and then happily distributed chocolates around the department. There was something so genuinely sweet about the way you did it. It felt less like a formal birthday celebration and more like someone simply wanting everyone around him to enjoy a happy moment together. Those are the little memories that make a workplace feel like more than just a workplace. Thank you for always being a good human being and for bringing that warmth to the department. Wishing you good health, happiness and many more birthdays filled with cake, chocolates and the same childlike excitement."
+            },
+
+            {
+                name: "Sutapa Dii",
+                note: "Sutapa Dii, thank you for making F&O feel so much easier for me. Whenever I got stuck, you always had a simple and practical way of explaining things without making them unnecessarily complicated. I genuinely learned a lot from you.\n\nAnd since you are also on your CA journey, there is an extra understanding between us of how demanding this whole process can be. I really wish you the very best for your CA journey. Keep going, Dii, and I hope all the hard work pays off exactly the way you want it to. I will definitely be cheering for you!"
+            },
+
+            {
+                name: "Dhrubo Sir",
+                note: "Dhrubo Sir, I honestly cannot imagine the department without your jokes, your laughter and your constant ability to keep everyone entertained. You brought such a lively energy to the floor, but what I will remember most is how you always made sure to check whether I was doing okay. I still smile whenever I remember you saying things like, 'Shruti, very good girl,' and asking whether I had done my puja or kept my Monday Mahadev vrat. Those little comments were so random and so completely you that they became some of my favourite memories. I also have a very special connection with you through the F&O Open Interest work. You could have easily maintained the daily data yourself, but I actually wanted to do it because it gave us a reason to interact every day. I would update the data and report it to you, and that became our little routine. Then when I was leaving, you asked who would update you after I was gone. I told you not to worry because I would automate the whole thing so you would not have to do anything anymore. Seeing how happy you were when I finally showed you the automation was honestly one of my favourite moments. You also made F&O much easier for me by explaining things in such a comfortable and simple way. Thank you for all the laughs, the learning and the affection, Sir. The department is definitely going to feel a little quieter without you asking about my F&O data."
+            },
+
+            {
+                name: "Chanchal Sir",
+                note: "Chanchal Sir, working with you on the SMID work was one of the experiences that genuinely added to my learning during this training. I got to see a different side of research while working with you, and your knowledge and understanding of the space taught me a lot. Whenever I had questions or got stuck somewhere, you were always helpful and willing to explain things properly. I really appreciated how approachable you were throughout the work. The experience gave me a better understanding of how to look at companies and sectors with more depth, and I will carry those learnings with me going forward. Thank you for all the guidance and help during the project, Sir. It was genuinely a pleasure getting to work with you."
+            },
+
+            {
+                name: "Anup Bhaiya (PMS)",
+                note: "Anup Bhaiya, you were one of those people who somehow made the office feel like a place where work and fun could happily exist together. From the beginning, our vibes just matched, and you always treated me like your little sister. We found a way to create masti literally everywhere. In the department, in the cafe, in the lift and probably in every possible corner of the office where we got a few minutes together. There was never really a normal conversation with us because somehow it always turned into a joke or some random nonsense. I am especially going to remember how you gave me a KitKat on Women's Day. It may have been a small thing, but I still have the wrapper saved, which probably says enough about how much these little memories mean to me. You brought a very different kind of happiness to my everyday office life. Thank you for all the jokes, the teasing, the sibling treatment and all the random moments that made even an ordinary workday more fun. I am definitely going to miss our nonsense, Bhaiya. Please stay exactly the same."
+            },
+
+            {
+                name: "Halu Da",
+                note: "Halu Da, I think you deserve a very special mention because you somehow discovered a side of me that almost nobody else in the office knew existed. Everyone knew me as a coffee person, but you somehow realised that there was actually a chai lover hiding inside me. Whenever you made a really good batch of chai, you would come to me and ask me to taste it and tell you how it was. And honestly, those were not ordinary cups of chai. They were genuinely amazing. Eventually, you started giving me chai almost every morning, and whenever you made another particularly good batch during the day or evening, somehow my cup would appear again. That became such a sweet little part of my daily routine that I did not even realise how much I would miss it until now. You never had to do any of that, but you remembered what I liked and made sure I got it. That kind of small, genuine care is something I will always remember. Thank you for every cup of chai, every little 'try this and tell me how it is', and for making my days at the office a little warmer. I may have walked into Eureka as a coffee drinker, but I am definitely leaving as someone who knows where the best chai was."
+            }
+        ];
+
+
+        // Populate Ticker Streams
+        const cardsContainer = document.getElementById("cards-grid");
+
+if (cardsContainer) {
+    cardsContainer.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5 max-w-5xl mx-auto";
+    cardsContainer.innerHTML = "";
+
+    teamData.forEach(person => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "group relative aspect-[3/4] rounded-2xl p-4 flex flex-col justify-between items-center text-center cursor-pointer transition-all duration-300 " +
+                         "envelope-card border border-white/10 hover:border-purple-400/50 " +
+                         "hover:-translate-y-2 active:scale-95 overflow-hidden";
+        
+        card.onclick = () => openModal(person);
+
+        card.innerHTML = `
+            <!-- Envelope Flap Geometry -->
+            <svg class="absolute top-0 inset-x-0 w-full h-12 text-white/[0.04] group-hover:text-purple-400/10 transition-colors pointer-events-none" viewBox="0 0 100 40" preserveAspectRatio="none">
+                <polygon points="0,0 100,0 50,38" fill="currentColor" stroke="rgba(255,255,255,0.08)" stroke-width="0.8" />
+            </svg>
+
+            <!-- Eureka Wax Stamp -->
+            <div class="relative z-10 mt-5">
+                <div class="w-14 h-14 rounded-full wax-seal flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <img src="images-removebg-preview (1).png" alt="Eureka Stamp" class="w-9 h-9 object-contain stamp-graphic group-hover:opacity-100 transition-opacity" />
+                </div>
+            </div>
+
+            <!-- Recipient Name -->
+            <div class="relative z-10 my-auto px-1 w-full">
+                <p class="text-[9px] font-mono tracking-widest text-purple-300/60 uppercase mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    Sealed For
+                </p>
+                <h3 class="text-sm font-semibold text-zinc-100 group-hover:text-white leading-snug tracking-tight">
+                    ${person.name}
+                </h3>
+            </div>
+
+            <!-- Bottom Perforated Edge -->
+            <div class="relative z-10 w-full pt-2 border-t border-dashed border-white/10 group-hover:border-purple-400/30 flex items-center justify-between text-zinc-500 group-hover:text-purple-300 transition-colors">
+                <span class="text-[9px] font-mono tracking-widest uppercase">MEMO</span>
+                <span class="text-xs transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+            </div>
+        `;
+
+        cardsContainer.appendChild(card);
+    });
+}
+        function openModal(person) {
+            clearTimeout(typingTimeout); 
+            document.getElementById('modal-name').innerText = person.name;
+            const msg = document.getElementById('modal-message');
+            msg.innerHTML = ''; msg.classList.add('typewriter-cursor');
+
+            const btn = document.getElementById('reply-btn');
+            btn.innerText = "Send"; btn.className = "bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors";
+            document.getElementById('reply-input').value = '';
+            
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.remove('hidden'); overlay.classList.add('flex');
+            
+            const content = document.getElementById('modal-capture-area');
+            content.style.animation = 'none'; void content.offsetWidth; content.style.animation = null; 
+
+            let i = 0;
+            function typeChar() {
+                if (i < person.note.length) { msg.innerHTML += person.note.charAt(i); i++; typingTimeout = setTimeout(typeChar, 18); } 
+                else { msg.classList.remove('typewriter-cursor'); }
+            }
+            typingTimeout = setTimeout(typeChar, 250);
+        }
+
+        function closeModal() {
+            clearTimeout(typingTimeout);
+            document.getElementById('modal-overlay').classList.add('hidden');
+            document.getElementById('modal-overlay').classList.remove('flex');
+        }
+
+        document.getElementById('modal-overlay').addEventListener('click', (e) => { if (e.target.id === 'modal-overlay') closeModal(); });
+
+        function submitReply(e) {
+            e.preventDefault();
+            const btn = document.getElementById('reply-btn');
+            btn.innerText = "Sent! ✓"; btn.className = "bg-purple-500 text-white px-6 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors";
+            setTimeout(closeModal, 1200);
+        }
+
+        function downloadNote() {
+            const area = document.getElementById('modal-capture-area');
+            const dBtn = document.getElementById('download-btn');
+            const cBtn = document.getElementById('close-btn');
+            const rSec = document.getElementById('reply-section');
+            
+            dBtn.style.display = 'none'; cBtn.style.display = 'none'; rSec.style.display = 'none';
+            area.style.background = '#0a0a0e'; 
+            
+            html2canvas(area, { scale: 2, backgroundColor: '#0a0a0e' }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Note_From_Shruti.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                dBtn.style.display = 'block'; cBtn.style.display = 'block'; rSec.style.display = 'flex';
+                area.style.background = ''; 
+            });
+        }
+
+        function openGuestbook() { document.getElementById('guestbook-overlay').classList.remove('hidden'); document.getElementById('guestbook-overlay').classList.add('flex'); }
+        function closeGuestbook() { document.getElementById('guestbook-overlay').classList.add('hidden'); document.getElementById('guestbook-overlay').classList.remove('flex'); }
+        function submitGuestbook(e) {
+            e.preventDefault();
+            const btn = document.getElementById('gb-btn');
+            btn.innerText = "Added to Ledger ✓"; btn.classList.remove('bg-white', 'text-black'); btn.classList.add('bg-purple-500', 'text-white');
+            setTimeout(() => { 
+                closeGuestbook(); btn.innerText = "Sign Guestbook"; btn.classList.add('bg-white', 'text-black'); btn.classList.remove('bg-purple-500', 'text-white'); 
+                document.getElementById('gb-name').value=''; document.getElementById('gb-msg').value=''; 
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
