@@ -530,7 +530,7 @@
             Name
         </h2>
 
-        <div id="modal-message" class="text-gray-200 text-base md:text-lg leading-relaxed mb-8 font-light min-h-0 flex-1 overflow-y-auto whitespace-pre-line pr-3">
+        <div id="modal-message" class="text-gray-200 text-base md:text-lg leading-relaxed mb-8 font-light min-h-0 flex-1 overflow-y-auto whitespace-pre-line pr-3"></div>
         </div>
 
         <div class="mt-auto pt-6 border-t border-white/10 flex-shrink-0" id="reply-section">
@@ -808,28 +808,51 @@ if (cardsContainer) {
     });
 }
         function openModal(person) {
-            clearTimeout(typingTimeout); 
-            document.getElementById('modal-name').innerText = person.name;
-            const msg = document.getElementById('modal-message');
-            msg.innerHTML = ''; msg.classList.add('typewriter-cursor');
+    clearTimeout(typingTimeout);
 
-            const btn = document.getElementById('reply-btn');
-            btn.innerText = "Send"; btn.className = "bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors";
-            document.getElementById('reply-input').value = '';
-            
-            const overlay = document.getElementById('modal-overlay');
-            overlay.classList.remove('hidden'); overlay.classList.add('flex');
-            
-            const content = document.getElementById('modal-capture-area');
-            content.style.animation = 'none'; void content.offsetWidth; content.style.animation = null; 
+    document.getElementById('modal-name').innerText = person.name;
 
-            let i = 0;
-            function typeChar() {
-                if (i < person.note.length) { msg.innerHTML += person.note.charAt(i); i++; typingTimeout = setTimeout(typeChar, 18); } 
-                else { msg.classList.remove('typewriter-cursor'); }
-            }
-            typingTimeout = setTimeout(typeChar, 250);
+    const msg = document.getElementById('modal-message');
+    msg.textContent = '';
+    msg.classList.add('typewriter-cursor');
+
+    const btn = document.getElementById('reply-btn');
+    btn.innerText = "Send";
+    btn.className = "bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors";
+
+    document.getElementById('reply-input').value = '';
+
+    const overlay = document.getElementById('modal-overlay');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+
+    const content = document.getElementById('modal-capture-area');
+    content.style.animation = 'none';
+    void content.offsetWidth;
+    content.style.animation = null;
+
+    let i = 0;
+
+    function typeChar() {
+        if (i < person.note.length) {
+
+            // Use textContent so \n\n remains a real line break
+            msg.textContent += person.note.charAt(i);
+
+            i++;
+
+            // Keep the latest typed text visible while scrolling
+            msg.scrollTop = msg.scrollHeight;
+
+            typingTimeout = setTimeout(typeChar, 18);
+
+        } else {
+            msg.classList.remove('typewriter-cursor');
         }
+    }
+
+    typingTimeout = setTimeout(typeChar, 250);
+}
 
         function closeModal() {
             clearTimeout(typingTimeout);
