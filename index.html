@@ -386,14 +386,16 @@
                         Handing over my models and stepping away for a bit, but don't celebrate just yet. This a strategic market pause rather than an exit. 
                     </p>
                     <p class="reveal-element delay-2">
-                        Thank you for the patience, the guidance, and the constant banter between market hours.
+                        Thank you for the patience, the guidance, and the constant banter between market hours and beyond. 
                     </p>
-                        Don’t get too comfortable with the desk being quiet. See you all very soon.
+                        Don’t get too comfortable with the desk being quiet. 
+                    </p>
+                        See you all very soon.
                     </p>
                 </div>
                 <div class="reveal-element delay-3 flex flex-wrap gap-3 mt-10">
                     <div class="glass-card px-4 py-2 rounded-full text-xs font-medium text-purple-200 tracking-wide border-purple-500/30">📈 Models Built: Too Many</div>
-                    <div class="glass-card px-4 py-2 rounded-full text-xs font-medium text-purple-200 tracking-wide border-purple-500/30">☕ Endless Desk Teas</div>
+                    <div class="glass-card px-4 py-2 rounded-full text-xs font-medium text-purple-200 tracking-wide border-purple-500/30">☕ Endless Desk Coffee</div>
                     <div class="glass-card px-4 py-2 rounded-full text-xs font-medium text-purple-200 tracking-wide border-purple-500/30">📞 Earnings Calls Survived</div>
                 </div>
             </div>
@@ -506,13 +508,18 @@
             </p>
 
             <!-- Connect Links -->
-            <div class="flex justify-center gap-4">
-                <a href="#" class="px-5 py-2 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-zinc-300 hover:text-white hover:border-violet-400/50 hover:bg-violet-500/10 transition-all duration-200">
-                    LinkedIn
-                </a>
-                <a href="mailto:your.email@example.com" class="px-5 py-2 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-zinc-300 hover:text-white hover:border-violet-400/50 hover:bg-violet-500/10 transition-all duration-200">
-                    Email
-                </a>
+            <!-- Terminal Status Connect Button -->
+            <div class="flex justify-center">
+                <button type="button" 
+                        onclick="openEasterEgg('terminal-status-modal')" 
+                        class="group relative inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-purple-950/30 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-900/40 text-purple-200 hover:text-white transition-all duration-300 font-mono text-xs shadow-[0_0_20px_rgba(168,85,247,0.15)] hover:shadow-[0_0_25px_rgba(168,85,247,0.3)]">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="tracking-widest uppercase font-semibold">CONNECT // TERMINAL STATUS</span>
+                    <span class="text-purple-400 group-hover:translate-x-1 transition-transform">&rarr;</span>
+                </button>
             </div>
         </footer>
     </main>
@@ -577,6 +584,69 @@
             </form>
 
             <button onclick="closeGuestbook()" class="absolute top-6 right-6 text-gray-400 hover:text-white">✕</button>
+        </div>
+    </div>
+
+        <!-- Terminal Status Modal -->
+    <div id="terminal-status-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="relative w-full max-w-lg bg-[#0c0d18] border border-purple-500/30 rounded-2xl p-6 sm:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.9)] font-mono text-xs">
+            
+            <!-- Window Header -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-5">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block"></span>
+                    <span class="text-zinc-400 text-[11px] ml-2 tracking-wider">SESSION_TERMINATION.LOG</span>
+                </div>
+                <button onclick="closeEasterEgg('terminal-status-modal')" class="text-zinc-500 hover:text-white text-base">✕</button>
+            </div>
+
+            <!-- Telemetry Stats -->
+            <div class="space-y-3 mb-5 text-zinc-300">
+                <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                    <span class="text-zinc-500">USER_STATUS:</span>
+                    <span class="text-rose-400 font-bold tracking-wider">404: ANALYST_NOT_FOUND</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                    <span class="text-zinc-500">DESK_STATE:</span>
+                    <span class="text-amber-400 font-bold">AFK_UNTIL_RESULTS</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                    <span class="text-zinc-500">EXCEL_PROCESSES:</span>
+                    <span class="text-zinc-400">DUMPED TO EXAM PREP</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                    <span class="text-zinc-500">PING_LATENCY:</span>
+                    <span class="text-purple-400 font-semibold">INF (DO NOT DISTURB)</span>
+                </div>
+            </div>
+
+            <!-- Sarcastic Desk Notice -->
+            <div class="p-4 rounded-xl bg-purple-950/20 border border-purple-500/20 text-[11.5px] leading-relaxed text-zinc-300 space-y-2 mb-6">
+                <p class="text-purple-300 font-semibold">
+                    &gt; SYSTEM NOTICE:
+                </p>
+                <p>
+                    Regular desk communications have been severed for the CA Finals gauntlet. No stock recommendations, no last-minute DCF debugging, and no unapproved tea runs will be entertained.
+                </p>
+                <p class="text-zinc-400 italic">
+                    Direct pings will remain queued in limbo until post-result convocation. If a model crashes in my absence, check row 847.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a href="mailto:shruti.workmail27@gmail.com" 
+                   class="flex-1 py-2.5 px-4 text-center rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-purple-200 font-semibold transition-all">
+                    SEND PRIORITY PING (EMAIL)
+                </a>
+                <button onclick="closeEasterEgg('terminal-status-modal')" 
+                        class="py-2.5 px-5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-white transition-all">
+                    ACKNOWLEDGE
+                </button>
+            </div>
+
         </div>
     </div>
 
