@@ -262,7 +262,7 @@
             3:29 PM SPRINT <span class="text-emerald-400 font-bold">▲ RECORD HIGH</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             DESK CHAI TAB <span class="text-rose-400 font-bold">▲ FOREVER UNPAID</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             TERMINAL PATIENCE <span class="text-rose-400 font-bold">▼ 404 NOT FOUND</span> &nbsp;&nbsp;•&nbsp;&nbsp;
-            MANAGEMENT GUIDANCE <span class="text-amber-400 font-bold">▼ FICTION</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            MANAGEMENT GUIDANCE <span class="text-amber-400 font-bold">▼ SURVIVED</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             MY CHAIR <span class="text-purple-400 font-bold">★ RESERVED TILL RETURN</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             EXCEL HEURISTICS <span class="text-rose-400 font-bold">▼ EXPIRED</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             AUDIT TRAIL <span class="text-rose-400 font-bold">▼ DELETED BEFORE LOGOUT</span> &nbsp;&nbsp;•&nbsp;&nbsp;
@@ -980,6 +980,19 @@ if (cardsContainer) {
                 document.getElementById('gb-name').value=''; document.getElementById('gb-msg').value=''; 
             }, 1500);
         }
+        function openEasterEgg(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeEasterEgg(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // Close on clicking backdrop
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('terminal-status-modal');
+            if (e.target === modal) closeEasterEgg('terminal-status-modal');
+        });
     </script>
 </body>
 </html>
