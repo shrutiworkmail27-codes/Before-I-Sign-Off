@@ -160,10 +160,6 @@
         }
 
         .wax-seal {
-            background: radial-gradient(circle at 35% 35%, #c084fc 0%, #7e22ce 60%, #3b0764 100%);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.4), inset 0 -2px 3px rgba(0, 0, 0, 0.6);
-        }
-        .wax-seal {
             background: radial-gradient(circle at 35% 30%, #a855f7 0%, #6b21a8 55%, #3b0764 100%);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 
                         inset 0 1px 2px rgba(255, 255, 255, 0.45), 
@@ -176,34 +172,16 @@
             filter: brightness(0) invert(1) drop-shadow(0 -0.5px 0.5px rgba(0,0,0,0.8));
             opacity: 0.9;
         }
-        #email-screen {
-            position: fixed;
-            inset: 0;
-            background-color: #f0f0ff;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s, filter 1.2s;
-            cursor: auto;
-        }
 
-        .email-screen-exit {
-            transform: scale(1.06);
-            opacity: 0;
-            filter: blur(10px);
-            pointer-events: none;
-        }
         #cards-grid {
             display: grid !important;
-            grid-template-columns: repeat(4, 1fr) !important; /* Forces exactly 4 cards in each horizontal row */
-            gap: 28px !important; /* Adds generous breathing room between them */
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 28px !important;
             max-width: 1280px !important;
             margin: 0 auto !important;
             padding: 30px 16px !important;
         }
 
-        /* Make each individual card taller and bigger */
         #cards-grid > * {
             min-height: 240px !important;
             padding: 24px !important;
@@ -212,7 +190,7 @@
         #cards-grid h3,
         #cards-grid .recipient-name {
             color: #ffffff !important;
-            font-size: 1.25rem !important; /* ~20px */
+            font-size: 1.25rem !important;
             font-weight: 700 !important;
             letter-spacing: -0.01em !important;
             line-height: 1.3 !important;
@@ -223,9 +201,9 @@
         #cards-grid span:first-child,
         #cards-grid .card-footer span {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
-            font-size: 0.6875rem !important; /* 11px */
+            font-size: 0.6875rem !important;
             letter-spacing: 0.12em !important;
-            color: rgba(161, 161, 170, 0.6) !important; /* zinc-400 with 60% opacity */
+            color: rgba(161, 161, 170, 0.6) !important;
             text-transform: uppercase !important;
             font-weight: 500 !important;
         }
@@ -276,95 +254,94 @@
         📝 Sign Guestbook
     </button>
 
-    <!-- PAGE 1: The Email Screen -->
-    <<!-- PAGE 1: Executive Email Client Screen -->
-<div id="email-screen" class="fixed inset-0 bg-[#05050a] flex items-center justify-center p-4 sm:p-6 z-[1000] select-none">
-    
-    <!-- Ambient Background Backlight -->
-    <div class="absolute w-[600px] h-[400px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-
-    <!-- The Email Window -->
-    <div class="relative w-full max-w-2xl bg-[#0e0f17]/90 border border-white/10 rounded-2xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] overflow-hidden backdrop-blur-2xl transition-all duration-300">
+    <!-- PAGE 1: Executive Email Client Screen -->
+    <div id="email-screen" class="fixed inset-0 bg-[#05050a] flex items-center justify-center p-4 sm:p-6 z-[1000] select-none">
         
-        <!-- Window Top Header Bar -->
-        <div class="px-5 py-3.5 bg-white/[0.02] border-b border-white/[0.06] flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-[#ff5f56]/90 border border-[#e0443e]"></span>
-                <span class="w-3 h-3 rounded-full bg-[#ffbd2e]/90 border border-[#dea123]"></span>
-                <span class="w-3 h-3 rounded-full bg-[#27c93f]/90 border border-[#1aab29]"></span>
-                <span class="ml-3 text-[11px] font-mono tracking-wider text-zinc-400 uppercase">Eureka Research Desk &bull; Internal Mail</span>
-            </div>
-            <div class="flex items-center gap-2 text-xs font-mono text-zinc-500">
-                <span>Inbox</span>
-                <span>&bull;</span>
-                <span class="text-zinc-400">Today, 3:30 PM</span>
-            </div>
-        </div>
+        <!-- Ambient Background Backlight -->
+        <div class="absolute w-[600px] h-[400px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-        <!-- Subject & Meta Section (Clean Single Line) -->
-        <div class="px-6 py-5 border-b border-white/[0.06]">
-            <!-- Subject in One Line -->
-            <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white whitespace-nowrap overflow-hidden text-ellipsis mb-3">
-                Sign-off &amp; Intermission &mdash; Industrial Training
-            </h1>
-
-            <!-- Sender / Recipient Metadata -->
-            <div class="space-y-1 text-xs text-zinc-400 font-mono">
-                <div class="flex items-center gap-2">
-                    <span class="text-zinc-500 w-12">From:</span>
-                    <span class="text-zinc-200">Shruti Kumari</span>
-                    <span class="text-zinc-500">&lt;shruti.workmail27@gmail.com&gt;</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-zinc-500 w-12">To:</span>
-                    <span class="text-zinc-200">Eureka &amp; Research Team</span>
-                    <span class="text-zinc-500">&lt;research@eurekasec.com&gt;</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Email Body -->
-        <div class="p-6 sm:p-8 space-y-5 text-zinc-300 text-base leading-relaxed font-light">
-            <p class="font-normal text-white text-lg">
-                Hi everyone,
-            </p>
+        <!-- The Email Window -->
+        <div class="relative w-full max-w-2xl bg-[#0e0f17]/90 border border-white/10 rounded-2xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] overflow-hidden backdrop-blur-2xl transition-all duration-300">
             
-            <p>
-                My industrial training journey with Eureka officially reaches its pause point today.
-            </p>
-
-            <p>
-                That said, consider this an intermission rather than a goodbye, just a necessary pause to lock in for CA Finals prep so I can rejoin the team full-time on the other side. 
-            <p>
-            Before I clear my screen, I’ve penned down a few words for each of you.
-            </p>
-
-            <!-- Refined Action Button -->
-            <div class="pt-3 pb-2">
-                <button type="button" onclick="enterExperience()" class="group inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-sm sm:text-base shadow-[0_8px_25px_rgba(147,51,234,0.35)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer border border-purple-400/30">
-                    <span>View Personal Memos</span>
-                    <span class="text-base transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
-                </button>
+            <!-- Window Top Header Bar -->
+            <div class="px-5 py-3.5 bg-white/[0.02] border-b border-white/[0.06] flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-[#ff5f56]/90 border border-[#e0443e]"></span>
+                    <span class="w-3 h-3 rounded-full bg-[#ffbd2e]/90 border border-[#dea123]"></span>
+                    <span class="w-3 h-3 rounded-full bg-[#27c93f]/90 border border-[#1aab29]"></span>
+                    <span class="ml-3 text-[11px] font-mono tracking-wider text-zinc-400 uppercase">Eureka Research Desk &bull; Internal Mail</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono text-zinc-500">
+                    <span>Inbox</span>
+                    <span>&bull;</span>
+                    <span class="text-zinc-400">Today, 3:30 PM</span>
+                </div>
             </div>
 
-            <!-- Signature Section -->
-            <div class="pt-6 border-t border-white/[0.06] flex items-center justify-between">
-                <div>
-                    <p class="text-xs text-zinc-500 uppercase tracking-wider font-mono mb-1">Warm regards,</p>
-                    <p class="text-base font-semibold text-white tracking-tight">Shruti</p>
-                    <p class="text-xs text-zinc-400 font-mono mt-0.5">CA Industrial Trainee &bull; Eureka Stock &amp; Share Broking</p>
+            <!-- Subject & Meta Section (Clean Single Line) -->
+            <div class="px-6 py-5 border-b border-white/[0.06]">
+                <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white whitespace-nowrap overflow-hidden text-ellipsis mb-3">
+                    Sign-off &amp; Intermission &mdash; Industrial Training
+                </h1>
+
+                <!-- Sender / Recipient Metadata -->
+                <div class="space-y-1 text-xs text-zinc-400 font-mono">
+                    <div class="flex items-center gap-2">
+                        <span class="text-zinc-500 w-12">From:</span>
+                        <span class="text-zinc-200">Shruti Kumari</span>
+                        <span class="text-zinc-500">&lt;shruti.workmail27@gmail.com&gt;</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-zinc-500 w-12">To:</span>
+                        <span class="text-zinc-200">Eureka &amp; Research Team</span>
+                        <span class="text-zinc-500">&lt;research@eurekasec.com&gt;</span>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Email Body -->
+            <div class="p-6 sm:p-8 space-y-5 text-zinc-300 text-base leading-relaxed font-light">
+                <p class="font-normal text-white text-lg">
+                    Hi everyone,
+                </p>
                 
-                <!-- Subtle Eureka Desk Crest in Signature -->
-                <div class="w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center p-2 opacity-60">
-                    <img src="images-removebg-preview (1).png" alt="Eureka" class="w-full h-full object-contain filter brightness-0 invert" />
+                <p>
+                    My industrial training journey with Eureka officially reaches its pause point today.
+                </p>
+
+                <p>
+                    That said, consider this an intermission rather than a goodbye, just a necessary pause to lock in for CA Finals prep so I can rejoin the team full-time on the other side. 
+                </p>
+                <p>
+                    Before I clear my screen, I’ve penned down a few words for each of you.
+                </p>
+
+                <!-- Refined Action Button -->
+                <div class="pt-3 pb-2">
+                    <button type="button" onclick="enterExperience()" class="group inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-sm sm:text-base shadow-[0_8px_25px_rgba(147,51,234,0.35)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer border border-purple-400/30">
+                        <span>View Personal Memos</span>
+                        <span class="text-base transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+                    </button>
                 </div>
+
+                <!-- Signature Section -->
+                <div class="pt-6 border-t border-white/[0.06] flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-zinc-500 uppercase tracking-wider font-mono mb-1">Warm regards,</p>
+                        <p class="text-base font-semibold text-white tracking-tight">Shruti</p>
+                        <p class="text-xs text-zinc-400 font-mono mt-0.5">CA Industrial Trainee &bull; Eureka Stock &amp; Share Broking</p>
+                    </div>
+                    
+                    <!-- Subtle Eureka Desk Crest in Signature -->
+                    <div class="w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center p-2 opacity-60">
+                        <img src="images-removebg-preview (1).png" alt="Eureka" class="w-full h-full object-contain filter brightness-0 invert" />
+                    </div>
+                </div>
+
             </div>
 
         </div>
-
     </div>
-</div>
 
     <!-- Rich Nebula Background -->
     <div class="nebula-bg" id="nebula"></div>
@@ -383,13 +360,16 @@
                     <p class="reveal-element delay-1">
                         Closing my terminal tabs before Excel finds another reason to freeze on me. 
                     </p>    
+                    <p class="reveal-element delay-1">
                         Handing over my models and stepping away for a bit, but don't celebrate just yet. This a strategic market pause rather than an exit. 
                     </p>
                     <p class="reveal-element delay-2">
                         Thank you for the patience, the guidance, and the constant banter between market hours and beyond. 
                     </p>
+                    <p class="reveal-element delay-2">
                         Don’t get too comfortable with the desk being quiet. 
                     </p>
+                    <p class="reveal-element delay-2">
                         See you all very soon.
                     </p>
                 </div>
@@ -401,11 +381,11 @@
             </div>
 
             <div class="w-full lg:w-1/2 mt-16 lg:mt-0 flex flex-col justify-center items-center lg:items-end z-10">
-    <div class="reveal-element delay-3 glass-card p-2.5 rounded-2xl transition-all duration-500 w-full max-w-md xl:max-w-lg shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-white/10 group hover:border-purple-500/30">
-        <img src="my-photo.png" alt="Memories at Eureka" class="rounded-xl w-full h-[400px] object-cover opacity-95 group-hover:opacity-100 transition-opacity">
-    </div>
-</div>
-</section>
+                <div class="reveal-element delay-3 glass-card p-2.5 rounded-2xl transition-all duration-500 w-full max-w-md xl:max-w-lg shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-white/10 group hover:border-purple-500/30">
+                    <img src="my-photo.png" alt="Memories at Eureka" class="rounded-xl w-full h-[400px] object-cover opacity-95 group-hover:opacity-100 transition-opacity">
+                </div>
+            </div>
+        </section>
 
         <!-- SECTION 2: DESK TRUTHS & CORE LEARNINGS -->
         <section class="min-h-[50vh] py-20 flex flex-col justify-center items-center text-center relative z-10 border-t border-white/5 mt-10">
@@ -473,7 +453,6 @@
             </div>
         </section>
 
-        <!-- SECTION 3: THE TICKER DIRECTORY -->
         <!-- SECTION 3: THE NOTES BOARD -->
         <section id="grid-section" class="min-h-[70vh] py-16 flex flex-col justify-center relative z-10 border-t border-white/5">
             <div class="max-w-6xl mx-auto px-4 w-full">
@@ -507,69 +486,69 @@
                 See you all on the other side as a full-time teammate!
             </p>
 
-            <!-- Connect Links -->
-            <!-- Terminal Status Connect Button -->
+            <!-- Connect Links / Terminal Status Trigger -->
             <div class="flex justify-center">
                 <button type="button" 
+                        id="open-terminal-btn"
                         onclick="openEasterEgg('terminal-status-modal')" 
-                        class="group relative inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-purple-950/30 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-900/40 text-purple-200 hover:text-white transition-all duration-300 font-mono text-xs shadow-[0_0_20px_rgba(168,85,247,0.15)] hover:shadow-[0_0_25px_rgba(168,85,247,0.3)]">
-                    <span class="relative flex h-2 w-2">
+                        class="group relative inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-purple-950/40 border border-purple-500/40 hover:border-purple-400 hover:bg-purple-900/50 text-purple-200 hover:text-white transition-all duration-300 font-mono text-xs cursor-pointer shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+                    <span class="relative flex h-2 w-2 pointer-events-none">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
-                    <span class="tracking-widest uppercase font-semibold">CONNECT // TERMINAL STATUS</span>
-                    <span class="text-purple-400 group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    <span class="tracking-widest uppercase font-semibold pointer-events-none">CONNECT // TERMINAL STATUS</span>
+                    <span class="text-purple-400 group-hover:translate-x-1 transition-transform pointer-events-none">&rarr;</span>
                 </button>
             </div>
         </footer>
     </main>
 
     <!-- Modal Overlay (For Personal Notes) -->
-<div id="modal-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 z-50 transition-opacity">
+    <div id="modal-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 z-50 transition-opacity">
 
-    <div id="modal-capture-area"
-     class="modal-glass w-full max-w-2xl rounded-2xl p-8 md:p-10 relative flex flex-col h-[90vh] max-h-[90vh] overflow-hidden">
+        <div id="modal-capture-area"
+         class="modal-glass w-full max-w-2xl rounded-2xl p-8 md:p-10 relative flex flex-col h-[90vh] max-h-[90vh] overflow-hidden">
 
-        <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
-            <span class="text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase">Personal Note</span>
+            <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+                <span class="text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase">Personal Note</span>
+            </div>
+
+            <h2 id="modal-name" class="text-3xl md:text-4xl font-semibold text-white mb-6 tracking-tight">
+                Name
+            </h2>
+
+            <div id="modal-message"
+                 class="text-gray-200 text-base md:text-lg leading-relaxed mb-8 font-light min-h-0 flex-1 overflow-y-auto whitespace-pre-line pr-3">
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-white/10 flex-shrink-0" id="reply-section">
+                <p class="text-[10px] font-bold tracking-[0.1em] text-gray-400 uppercase mb-3">
+                    Advice for CA Finals
+                </p>
+
+                <form id="reply-form" onsubmit="submitReply(event)" class="flex gap-2">
+                    <input type="text" id="reply-input" placeholder="Leave a blessing or advice..." class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-purple-400" required>
+
+                    <button type="submit" id="reply-btn" class="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors">
+                        Send
+                    </button>
+                </form>
+            </div>
+
+            <button onclick="downloadNote()" id="download-btn" title="Save as Image" class="absolute top-8 right-16 text-gray-400 hover:text-white transition-colors cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 0010-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+            </button>
+
+            <button onclick="closeModal()" id="close-btn" class="absolute top-8 right-8 text-gray-400 hover:text-white transition-colors cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
         </div>
-
-        <h2 id="modal-name" class="text-3xl md:text-4xl font-semibold text-white mb-6 tracking-tight">
-            Name
-        </h2>
-
-        <div id="modal-message"
-             class="text-gray-200 text-base md:text-lg leading-relaxed mb-8 font-light min-h-0 flex-1 overflow-y-auto whitespace-pre-line pr-3">
-        </div>
-
-        <div class="mt-auto pt-6 border-t border-white/10 flex-shrink-0" id="reply-section">
-            <p class="text-[10px] font-bold tracking-[0.1em] text-gray-400 uppercase mb-3">
-                Advice for CA Finals
-            </p>
-
-            <form id="reply-form" onsubmit="submitReply(event)" class="flex gap-2">
-                <input type="text" id="reply-input" placeholder="Leave a blessing or advice..." class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-purple-400" required>
-
-                <button type="submit" id="reply-btn" class="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors">
-                    Send
-                </button>
-            </form>
-        </div>
-
-        <button onclick="downloadNote()" id="download-btn" title="Save as Image" class="absolute top-8 right-16 text-gray-400 hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 0010-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-        </button>
-
-        <button onclick="closeModal()" id="close-btn" class="absolute top-8 right-8 text-gray-400 hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-
     </div>
-</div>
 
     <!-- Guestbook Overlay (For Open Floor) -->
     <div id="guestbook-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
@@ -580,15 +559,15 @@
             <form onsubmit="submitGuestbook(event)" class="flex flex-col gap-3">
                 <input type="text" id="gb-name" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-purple-400" required>
                 <textarea id="gb-msg" placeholder="Your message..." rows="3" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-purple-400 resize-none" required></textarea>
-                <button type="submit" id="gb-btn" class="bg-white text-black w-full py-2.5 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Sign Guestbook</button>
+                <button type="submit" id="gb-btn" class="bg-white text-black w-full py-2.5 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors cursor-pointer">Sign Guestbook</button>
             </form>
 
-            <button onclick="closeGuestbook()" class="absolute top-6 right-6 text-gray-400 hover:text-white">✕</button>
+            <button onclick="closeGuestbook()" class="absolute top-6 right-6 text-gray-400 hover:text-white cursor-pointer">✕</button>
         </div>
     </div>
 
-        <!-- Terminal Status Modal -->
-    <div id="terminal-status-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <!-- Terminal Status Modal -->
+    <div id="terminal-status-modal" style="display: none;" class="fixed inset-0 z-[10000] bg-black/85 backdrop-blur-md items-center justify-center p-4">
         <div class="relative w-full max-w-lg bg-[#0c0d18] border border-purple-500/30 rounded-2xl p-6 sm:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.9)] font-mono text-xs">
             
             <!-- Window Header -->
@@ -599,7 +578,7 @@
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block"></span>
                     <span class="text-zinc-400 text-[11px] ml-2 tracking-wider">SESSION_TERMINATION.LOG</span>
                 </div>
-                <button onclick="closeEasterEgg('terminal-status-modal')" class="text-zinc-500 hover:text-white text-base">✕</button>
+                <button type="button" onclick="closeEasterEgg('terminal-status-modal')" class="text-zinc-500 hover:text-white text-base cursor-pointer">✕</button>
             </div>
 
             <!-- Telemetry Stats -->
@@ -638,11 +617,12 @@
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row gap-3">
                 <a href="mailto:shruti.workmail27@gmail.com" 
-                   class="flex-1 py-2.5 px-4 text-center rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-purple-200 font-semibold transition-all">
+                   class="flex-1 py-2.5 px-4 text-center rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-purple-200 font-semibold transition-all cursor-pointer">
                     SEND PRIORITY PING (EMAIL)
                 </a>
-                <button onclick="closeEasterEgg('terminal-status-modal')" 
-                        class="py-2.5 px-5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-white transition-all">
+                <button type="button" 
+                        onclick="closeEasterEgg('terminal-status-modal')" 
+                        class="py-2.5 px-5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-white transition-all cursor-pointer">
                     ACKNOWLEDGE
                 </button>
             </div>
@@ -829,118 +809,114 @@
             }
         ];
 
-
-        // Populate Ticker Streams
+        // Populate Cards Grid
         const cardsContainer = document.getElementById("cards-grid");
 
-if (cardsContainer) {
-    cardsContainer.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5 max-w-5xl mx-auto";
-    cardsContainer.innerHTML = "";
+        if (cardsContainer) {
+            cardsContainer.innerHTML = "";
 
-    teamData.forEach(person => {
-        const card = document.createElement("button");
-        card.type = "button";
-        card.className = "group relative aspect-[3/4] rounded-2xl p-4 flex flex-col justify-between items-center text-center cursor-pointer transition-all duration-300 " +
-                         "envelope-card border border-white/10 hover:border-purple-400/50 " +
-                         "hover:-translate-y-2 active:scale-95 overflow-hidden";
-        
-        card.onclick = () => openModal(person);
+            teamData.forEach(person => {
+                const card = document.createElement("button");
+                card.type = "button";
+                card.className = "group relative aspect-[3/4] rounded-2xl p-4 flex flex-col justify-between items-center text-center cursor-pointer transition-all duration-300 " +
+                                 "envelope-card border border-white/10 hover:border-purple-400/50 " +
+                                 "hover:-translate-y-2 active:scale-95 overflow-hidden";
+                
+                card.onclick = () => openModal(person);
 
-        card.innerHTML = `
-            <!-- Envelope Flap Geometry -->
-            <svg class="absolute top-0 inset-x-0 w-full h-12 text-white/[0.04] group-hover:text-purple-400/10 transition-colors pointer-events-none" viewBox="0 0 100 40" preserveAspectRatio="none">
-                <polygon points="0,0 100,0 50,38" fill="currentColor" stroke="rgba(255,255,255,0.08)" stroke-width="0.8" />
-            </svg>
+                card.innerHTML = `
+                    <!-- Envelope Flap Geometry -->
+                    <svg class="absolute top-0 inset-x-0 w-full h-12 text-white/[0.04] group-hover:text-purple-400/10 transition-colors pointer-events-none" viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <polygon points="0,0 100,0 50,38" fill="currentColor" stroke="rgba(255,255,255,0.08)" stroke-width="0.8" />
+                    </svg>
 
-            <!-- Eureka Wax Stamp -->
-            <div class="relative z-10 mt-5">
-                <div class="w-14 h-14 rounded-full wax-seal flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                    <img src="images-removebg-preview (1).png" alt="Eureka Stamp" class="w-9 h-9 object-contain stamp-graphic group-hover:opacity-100 transition-opacity" />
-                </div>
-            </div>
+                    <!-- Eureka Wax Stamp -->
+                    <div class="relative z-10 mt-5 pointer-events-none">
+                        <div class="w-14 h-14 rounded-full wax-seal flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                            <img src="images-removebg-preview (1).png" alt="Eureka Stamp" class="w-9 h-9 object-contain stamp-graphic group-hover:opacity-100 transition-opacity" />
+                        </div>
+                    </div>
 
-            <!-- Recipient Name -->
-            <div class="relative z-10 my-auto px-1 w-full">
-                <p class="text-[9px] font-mono tracking-widest text-purple-300/60 uppercase mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    Sealed For
-                </p>
-                <h3 class="text-sm font-semibold text-zinc-100 group-hover:text-white leading-snug tracking-tight">
-                    ${person.name}
-                </h3>
-            </div>
+                    <!-- Recipient Name -->
+                    <div class="relative z-10 my-auto px-1 w-full pointer-events-none">
+                        <p class="text-[9px] font-mono tracking-widest text-purple-300/60 uppercase mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            Sealed For
+                        </p>
+                        <h3 class="text-sm font-semibold text-zinc-100 group-hover:text-white leading-snug tracking-tight">
+                            ${person.name}
+                        </h3>
+                    </div>
 
-            <!-- Bottom Perforated Edge -->
-            <div class="relative z-10 w-full pt-2 border-t border-dashed border-white/10 group-hover:border-purple-400/30 flex items-center justify-between text-zinc-500 group-hover:text-purple-300 transition-colors">
-                <span class="text-[9px] font-mono tracking-widest uppercase">MEMO</span>
-                <span class="text-xs transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-            </div>
-        `;
+                    <!-- Bottom Perforated Edge -->
+                    <div class="relative z-10 w-full pt-2 border-t border-dashed border-white/10 group-hover:border-purple-400/30 flex items-center justify-between text-zinc-500 group-hover:text-purple-300 transition-colors pointer-events-none">
+                        <span class="text-[9px] font-mono tracking-widest uppercase">MEMO</span>
+                        <span class="text-xs transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                    </div>
+                `;
 
-        cardsContainer.appendChild(card);
-    });
-}
-        function openModal(person) {
-    clearTimeout(typingTimeout);
-
-    document.getElementById('modal-name').innerText = person.name;
-
-    const msg = document.getElementById('modal-message');
-
-    // Force paragraph formatting and scrolling
-    msg.style.whiteSpace = 'pre-line';
-    msg.style.overflowY = 'auto';
-    msg.style.flex = '1 1 auto';
-    msg.style.minHeight = '0';
-    msg.style.maxHeight = '100%';
-    msg.style.paddingRight = '12px';
-
-    msg.textContent = '';
-    msg.classList.add('typewriter-cursor');
-
-    const btn = document.getElementById('reply-btn');
-    btn.innerText = "Send";
-    btn.className = "bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors";
-
-    document.getElementById('reply-input').value = '';
-
-    const overlay = document.getElementById('modal-overlay');
-    overlay.classList.remove('hidden');
-    overlay.classList.add('flex');
-
-    const content = document.getElementById('modal-capture-area');
-
-    content.style.animation = 'none';
-    void content.offsetWidth;
-    content.style.animation = null;
-
-    let i = 0;
-
-    function typeChar() {
-        if (i < person.note.length) {
-
-            msg.textContent += person.note.charAt(i);
-
-            i++;
-
-            // Automatically keep the latest text visible
-            msg.scrollTop = msg.scrollHeight;
-
-            typingTimeout = setTimeout(typeChar, 18);
-
-        } else {
-            msg.classList.remove('typewriter-cursor');
+                cardsContainer.appendChild(card);
+            });
         }
-    }
 
-    typingTimeout = setTimeout(typeChar, 250);
-}
+        function openModal(person) {
+            clearTimeout(typingTimeout);
+
+            document.getElementById('modal-name').innerText = person.name;
+
+            const msg = document.getElementById('modal-message');
+
+            // Force paragraph formatting and scrolling
+            msg.style.whiteSpace = 'pre-line';
+            msg.style.overflowY = 'auto';
+            msg.style.flex = '1 1 auto';
+            msg.style.minHeight = '0';
+            msg.style.maxHeight = '100%';
+            msg.style.paddingRight = '12px';
+
+            msg.textContent = '';
+            msg.classList.add('typewriter-cursor');
+
+            const btn = document.getElementById('reply-btn');
+            btn.innerText = "Send";
+            btn.className = "bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors";
+
+            document.getElementById('reply-input').value = '';
+
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+
+            const content = document.getElementById('modal-capture-area');
+
+            content.style.animation = 'none';
+            void content.offsetWidth;
+            content.style.animation = null;
+
+            let i = 0;
+
+            function typeChar() {
+                if (i < person.note.length) {
+                    msg.textContent += person.note.charAt(i);
+                    i++;
+                    msg.scrollTop = msg.scrollHeight;
+                    typingTimeout = setTimeout(typeChar, 18);
+                } else {
+                    msg.classList.remove('typewriter-cursor');
+                }
+            }
+
+            typingTimeout = setTimeout(typeChar, 250);
+        }
+
         function closeModal() {
             clearTimeout(typingTimeout);
             document.getElementById('modal-overlay').classList.add('hidden');
             document.getElementById('modal-overlay').classList.remove('flex');
         }
 
-        document.getElementById('modal-overlay').addEventListener('click', (e) => { if (e.target.id === 'modal-overlay') closeModal(); });
+        document.getElementById('modal-overlay').addEventListener('click', (e) => { 
+            if (e.target.id === 'modal-overlay') closeModal(); 
+        });
 
         function submitReply(e) {
             e.preventDefault();
@@ -969,8 +945,16 @@ if (cardsContainer) {
             });
         }
 
-        function openGuestbook() { document.getElementById('guestbook-overlay').classList.remove('hidden'); document.getElementById('guestbook-overlay').classList.add('flex'); }
-        function closeGuestbook() { document.getElementById('guestbook-overlay').classList.add('hidden'); document.getElementById('guestbook-overlay').classList.remove('flex'); }
+        function openGuestbook() { 
+            document.getElementById('guestbook-overlay').classList.remove('hidden'); 
+            document.getElementById('guestbook-overlay').classList.add('flex'); 
+        }
+
+        function closeGuestbook() { 
+            document.getElementById('guestbook-overlay').classList.add('hidden'); 
+            document.getElementById('guestbook-overlay').classList.remove('flex'); 
+        }
+
         function submitGuestbook(e) {
             e.preventDefault();
             const btn = document.getElementById('gb-btn');
@@ -980,12 +964,22 @@ if (cardsContainer) {
                 document.getElementById('gb-name').value=''; document.getElementById('gb-msg').value=''; 
             }, 1500);
         }
+
+        // --- Terminal Status Modal Logic ---
         function openEasterEgg(id) {
-            document.getElementById(id).classList.remove('hidden');
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.remove('hidden');
+            }
         }
 
         function closeEasterEgg(id) {
-            document.getElementById(id).classList.add('hidden');
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.add('hidden');
+            }
         }
 
         // Close on clicking backdrop
