@@ -25,30 +25,27 @@
         }
 
         /* --- 1. CUSTOM CURSOR --- */
-        @media (pointer: coarse) { body { cursor: auto; } .custom-cursor { display: none; } }
+        @media (pointer: coarse) { body { cursor: auto; } .custom-cursor { display: none !important; } }
         .cursor-dot {
             position: fixed; top: 0; left: 0; width: 4px; height: 4px;
-            background: #fff; border-radius: 50%; pointer-events: none;
+            background: #fff; border-radius: 50%; pointer-events: none !important;
             z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s;
         }
         .cursor-ring {
             position: fixed; top: 0; left: 0; width: 34px; height: 34px;
-            border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 50%; pointer-events: none;
+            border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 50%; pointer-events: none !important;
             z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
         }
         .clicking .cursor-ring { width: 16px; height: 16px; background: rgba(168, 85, 247, 0.2); }
 
         /* --- 2. THE EMAIL SCREEN --- */
         #email-screen {
-            position: fixed; inset: 0; background-color: #ffffff; z-index: 1000;
+            position: fixed; inset: 0; background-color: #05050a; z-index: 1000;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.5s, filter 1.5s;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s, filter 1.2s;
             cursor: auto;
         }
-        .email-screen-exit { transform: scale(1.1); opacity: 0; filter: blur(10px); pointer-events: none; }
-        .email-content { font-family: Arial, sans-serif; color: #202124; font-size: 15px; line-height: 1.6; max-width: 600px; padding: 20px; }
-        .email-link { color: #1a73e8; text-decoration: underline; font-weight: 500; cursor: pointer; transition: color 0.2s; }
-        .email-link:hover { color: #1557b0; }
+        .email-screen-exit { transform: scale(1.06); opacity: 0; filter: blur(10px); pointer-events: none !important; }
 
         /* --- 3. AMBIENT NEBULA & PARTICLES --- */
         .nebula-bg {
@@ -109,9 +106,6 @@
         }
         @keyframes modalPop { 0% { opacity: 0; transform: scale(0.95) translateY(15px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
 
-        .typewriter-cursor::after { content: '|'; animation: blink 1s step-end infinite; color: #a855f7; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
         .market-emoji {
             position: fixed; font-size: 24px; z-index: 999; pointer-events: none;
             animation: floatEmoji 3s ease-in forwards;
@@ -122,33 +116,6 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-        /* --- 6. MARQUEE TICKER ANIMATIONS --- */
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-        @keyframes marquee-reverse {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0%); }
-        }
-        .animate-marquee {
-            display: flex;
-            width: max-content;
-            animation: marquee 35s linear infinite;
-        }
-        .animate-marquee-reverse {
-            display: flex;
-            width: max-content;
-            animation: marquee-reverse 35s linear infinite;
-        }
-        .card-specular {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-            box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), 0 12px 32px -8px rgba(0, 0, 0, 0.7);
-        }
-        .card-specular:hover {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-            box-shadow: inset 0 1px 2px 0 rgba(216, 180, 254, 0.4), 0 20px 40px -10px rgba(147, 51, 234, 0.35);
-        }
         /* Tactile Envelope & Wax Seal Styling */
         .envelope-card {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
@@ -186,6 +153,7 @@
             min-height: 240px !important;
             padding: 24px !important;
         }
+        
         /* Teammate Name: Bold, Crisp White, Larger */
         #cards-grid h3,
         #cards-grid .recipient-name {
@@ -208,7 +176,7 @@
             font-weight: 500 !important;
         }
 
-        /* Envelope Top Flap: Restore subtle dark glass look instead of light purple */
+        /* Envelope Top Flap */
         #cards-grid .envelope-flap,
         #cards-grid [class*="clip-path"],
         #cards-grid svg polygon {
@@ -247,7 +215,7 @@
     <div class="custom-cursor cursor-dot" id="cursor-dot"></div>
     <div class="custom-cursor cursor-ring" id="cursor-ring"></div>
 
-    <!-- The Desk Ticker (Punchy, Sassy & Market-Hardened) -->
+    <!-- The Desk Ticker -->
     <div id="desk-ticker" class="ticker-bar py-3.5 text-base sm:text-lg font-mono tracking-wider border-y border-white/10 bg-[#080911]/95 backdrop-blur-md overflow-hidden whitespace-nowrap select-none">
         <div class="ticker-content inline-block">
             EUREKA DESK INTERMISSION &nbsp;&nbsp;•&nbsp;&nbsp;
@@ -294,13 +262,12 @@
                 </div>
             </div>
 
-            <!-- Subject & Meta Section (Clean Single Line) -->
+            <!-- Subject & Meta Section -->
             <div class="px-6 py-5 border-b border-white/[0.06]">
                 <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white whitespace-nowrap overflow-hidden text-ellipsis mb-3">
                     Sign-off &amp; Intermission &mdash; Industrial Training
                 </h1>
 
-                <!-- Sender / Recipient Metadata -->
                 <div class="space-y-1 text-xs text-zinc-400 font-mono">
                     <div class="flex items-center gap-2">
                         <span class="text-zinc-500 w-12">From:</span>
@@ -332,11 +299,14 @@
                     Before I clear my screen, I’ve penned down a few words for each of you.
                 </p>
 
-                <!-- Refined Action Button -->
+                <!-- Action Button -->
                 <div class="pt-3 pb-2">
-                    <button type="button" onclick="enterExperience()" class="group inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-sm sm:text-base shadow-[0_8px_25px_rgba(147,51,234,0.35)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer border border-purple-400/30">
-                        <span>View Personal Memos</span>
-                        <span class="text-base transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+                    <button type="button" 
+                            id="enter-btn"
+                            onclick="enterExperience()" 
+                            class="group inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-sm sm:text-base shadow-[0_8px_25px_rgba(147,51,234,0.35)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer border border-purple-400/30">
+                        <span class="pointer-events-none">View Personal Memos</span>
+                        <span class="text-base transition-transform duration-200 group-hover:translate-x-1 pointer-events-none">&rarr;</span>
                     </button>
                 </div>
 
@@ -348,7 +318,6 @@
                         <p class="text-xs text-zinc-400 font-mono mt-0.5">CA Industrial Trainee &bull; Eureka Stock &amp; Share Broking</p>
                     </div>
                     
-                    <!-- Subtle Eureka Desk Crest in Signature -->
                     <div class="w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center p-2 opacity-60">
                         <img src="images-removebg-preview (1).png" alt="Eureka" class="w-full h-full object-contain filter brightness-0 invert" />
                     </div>
@@ -478,8 +447,8 @@
                 </p>
 
                 <!-- Static Square Cards Grid -->
-                <div id="cards-grid" style="display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 24px !important; max-width: 1200px; margin: 0 auto; padding: 20px;">
-                <!-- Cards injected by JS -->
+                <div id="cards-grid">
+                    <!-- Injected by JS -->
                 </div>
             </div>
         </section>
@@ -523,7 +492,7 @@
     <div id="modal-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 z-50 transition-opacity">
 
         <div id="modal-capture-area"
-         class="modal-glass w-full max-w-2xl rounded-2xl p-8 md:p-10 relative flex flex-col h-[90vh] max-h-[90vh] overflow-hidden">
+             class="modal-glass w-full max-w-2xl rounded-2xl p-8 md:p-10 relative flex flex-col h-[90vh] max-h-[90vh] overflow-hidden">
 
             <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
                 <span class="text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase">Personal Note</span>
@@ -681,9 +650,6 @@
                 setTimeout(() => el.remove(), 3000);
             }
         }
-
-        // --- Core Site Logic ---
-        let typingTimeout;
 
         // Initialize Clean Particles
         particlesJS("particles-js", {
@@ -875,61 +841,35 @@
         }
 
         function openModal(person) {
-    document.getElementById('modal-name').innerText = person.name;
+            document.getElementById('modal-name').innerText = person.name;
 
-    const msg = document.getElementById('modal-message');
+            const msg = document.getElementById('modal-message');
 
-    // Reset and apply styles
-    msg.style.whiteSpace = 'pre-line';
-    msg.style.overflowY = 'auto';
-    msg.style.flex = '1 1 auto';
-    msg.style.minHeight = '0';
-    msg.style.maxHeight = '100%';
-    msg.style.paddingRight = '12px';
+            msg.style.whiteSpace = 'pre-line';
+            msg.style.overflowY = 'auto';
+            msg.style.flex = '1 1 auto';
+            msg.style.minHeight = '0';
+            msg.style.maxHeight = '100%';
+            msg.style.paddingRight = '12px';
 
-    // Insert entire text immediately
-    msg.textContent = person.note;
+            // Insert entire text immediately
+            msg.textContent = person.note;
 
-    // Trigger smooth fade & slide-up animation
-    msg.classList.remove('animate-letter-fade');
-    void msg.offsetWidth; // Force CSS reflow to replay animation every click
-    msg.classList.add('animate-letter-fade');
+            // Trigger smooth fade & slide-up animation
+            msg.classList.remove('animate-letter-fade');
+            void msg.offsetWidth;
+            msg.classList.add('animate-letter-fade');
 
-    // Scroll to the very top so they read from line 1
-    msg.scrollTop = 0;
+            msg.scrollTop = 0;
 
-    // Reset reply form state
-    const btn = document.getElementById('reply-btn');
-    btn.innerText = "Send";
-    btn.className = "bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors";
-    document.getElementById('reply-input').value = '';
+            const btn = document.getElementById('reply-btn');
+            btn.innerText = "Send";
+            btn.className = "bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors";
+            document.getElementById('reply-input').value = '';
 
-    // Show modal
-    const overlay = document.getElementById('modal-overlay');
-    overlay.classList.remove('hidden');
-    overlay.classList.add('flex');
-}
-
-            const content = document.getElementById('modal-capture-area');
-
-            content.style.animation = 'none';
-            void content.offsetWidth;
-            content.style.animation = null;
-
-            let i = 0;
-
-            function typeChar() {
-                if (i < person.note.length) {
-                    msg.textContent += person.note.charAt(i);
-                    i++;
-                    msg.scrollTop = msg.scrollHeight;
-                    typingTimeout = setTimeout(typeChar, 18);
-                } else {
-                    msg.classList.remove('typewriter-cursor');
-                }
-            }
-
-            typingTimeout = setTimeout(typeChar, 250);
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
         }
 
         function closeModal() {
@@ -944,7 +884,8 @@
         function submitReply(e) {
             e.preventDefault();
             const btn = document.getElementById('reply-btn');
-            btn.innerText = "Sent! ✓"; btn.className = "bg-purple-500 text-white px-6 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors";
+            btn.innerText = "Sent! ✓"; 
+            btn.className = "bg-purple-500 text-white px-6 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors";
             setTimeout(closeModal, 1200);
         }
 
@@ -1005,10 +946,17 @@
             }
         }
 
-        // Close on clicking backdrop
         window.addEventListener('click', (e) => {
             const modal = document.getElementById('terminal-status-modal');
             if (e.target === modal) closeEasterEgg('terminal-status-modal');
+        });
+
+        // Robust DOM attachment
+        document.addEventListener('DOMContentLoaded', () => {
+            const enterBtn = document.getElementById('enter-btn');
+            if (enterBtn) {
+                enterBtn.addEventListener('click', () => enterExperience());
+            }
         });
     </script>
 </body>
