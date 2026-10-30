@@ -207,6 +207,30 @@
         .animate-letter-fade {
             animation: letterFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+        /* Smooth Fade & Slide-Up for Letter Text */
+        @keyframes letterFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-letter-fade {
+            animation: letterFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Shake animation on invalid PIN */
+        @keyframes pinShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .animate-shake {
+            animation: pinShake 0.4s ease-in-out;
+        }
     </style>
 </head>
 <body class="selection:bg-purple-500/30 selection:text-white">
@@ -702,91 +726,109 @@
         const teamData = [
             {
                 name: "Rakesh Sir",
+                pin: "CA Principal",
                 note: "Sir, having my CA industrial training under your name has been one of the most meaningful parts of my CA journey.\n\nYou did not just teach me about the markets. You taught me how to look beyond the market, beyond textbooks, and beyond what is written in a report. So many of the things I have learned from you are things I could never have learned from a book.\n\nYou have always told me, 'Whenever you have a doubt, just come to me,' and I think I have taken that invitation very seriously because I have walked into your room with every kind of question imaginable (sometimes illogical too). But, no matter how complicated the question was, you always had a way of explaining it so simply that it suddenly made complete sense.\n\nBut what I will value even more is the comfort I have always had with you. I could talk to you about literally anything, whether it was work, my career, some problem in the office, or just something I was confused about in life. You have always made me feel that I have someone I can go to without having to think twice.\n\nYou constantly made sure that I was included in good work and given the right exposure because you wanted me to learn as much as possible. The way you would tell everyone that 'ye bachha log h mera' and that you had to look after us may have sounded casual, but I always felt that you genuinely meant it.\n\nThere were even times when something was bothering me at work and you noticed it (seat change obv) or asked me about it before I had said anything. Those little things told me a lot.\n\nWhen I look back, I know I will remember the knowledge, the markets and the work, but I will remember your guidance and the feeling of always having someone in my corner even more.\n\nThank you for everything, Sir.\n\nI really hope I give my absolute best and make you proud, Sir."
             },
 
             {
                 name: "Anup Sir",
+                pin: "The Kung Fu Master",
                 note: "Anup Sir, looking back at this entire year, I realise how much of the professional I have become today was shaped by you.\n\nI still remember the beginning, when you used to give me all those data assignments and repetitive work. At that time, I used to wonder why I was doing so much copy paste work and when I would finally get to do the “real” analysis. Then you explained your Kung Fu training example to me. You told me that in the beginning, you may hate the repetitive exercises, but those are exactly the things that build the foundation for everything that comes later. I did not completely understand it then, but I understand it now.\n\nSlowly, the work changed. You started giving me sector work, analysis, research assignments and more responsibility. Every stage prepared me for the next one, and I realised that you were not simply giving me different kinds of work. You were building me step by step.\n\nBut what made your training different was that you never wanted me to stop at just doing research. You constantly pushed me to enhance myself and find better ways of working. You encouraged me to explore AI, agentic AI and automation and actually use them in research instead of just reading about them. You gave me the freedom to experiment, work on different projects and figure out how technology could make research smarter and more efficient. Every time I came up with some new AI idea, instead of asking why I was doing something beyond my usual work, you encouraged me to continue and take it further. That encouragement made me realise that learning does not always mean learning what everyone else is already doing. Sometimes it means trying to build something that does not exist yet.\n\nYou took the raw version of Shruti and slowly brought out a much better version of her. You were like a jeweller who somehow managed to find the diamond hidden inside the rough stone. And then there were all those small things you used to say: “You will do it.” “You will see, you will do it.” “You have done better than my expectations.” “Your memory is very good.” “Study properly and become a CA.” You may have said them casually, but I carried those words with me every time I doubted myself.\n\nAnd beyond all the work, I could talk to you about family, studies, struggles, life and almost anything that was bothering me. Whenever something went wrong in the office, I knew there was always someone I could go to.\n\nHaving a manager who does not just assign work but actually thinks about how to train you, pushes you to improve yourself, gives you the freedom to explore and still believes in you when you are figuring things out is something I feel very lucky to have experienced. Having a manager like you was genuinely a blessing for me.\n\nThank you for being my trainer, my mentor, my problem solver and the person who kept pushing me to become better than the version of myself that walked into Eureka. A huge part of what I carry forward from this training will always have your influence behind it."
             },
 
             {
                 name: "Akhil Bhaiya",
+                pin: "Akhil",
                 note: "Akhil Bhaiya, I always noticed how you would check what project I was working on and what I was getting to learn from it. It never felt like you were just checking on work. You actually cared about whether I was getting good exposure and trying something new.\n\nI especially remember showing you all the AI, automation and agentic AI ideas I was working on. You patiently listened to everything and always encouraged me to keep experimenting and exploring more. You never made me feel that I was trying something unnecessary or different. Instead, you gave me the confidence to keep going.\n\nThank you for always looking out for my work and for giving me the freedom to explore beyond the usual. I really appreciated having someone like you who always wanted me to do more."
             },
 
             {
                 name: "Nitisha <3",
+                pin: "My Person",
                 note: "Broooo, I genuinely don't know how to write this one because there is way too much to fit into one note. And knowing us, even if I write ten pages, we will probably still remember some completely random thing and say, “Areee ye toh likha hi nahi.” So I am going to try keeping it short (chhoti chhoti chizo me khushi......).\n\nYou were not just my desk partner at Eureka. You somehow became my person there. And I still find it funny that our seats got changed because apparently (according to cctv) we talked too much (ayy lrki bahot chapar chapar krti ho). To this day, I genuinely do not understand what exactly they thought we were discussing all day (ye raaj bhi usi k sath chala gya). Because yes, we talked a lot, but half the time it was work, projects, some random idea, some stupid problem, some completely unnecessary discussion or something that only the two of us would find funny.\n\nSome of my favourite memories with you are actually the smallest ones. Going downstairs together. Eating together. Roaming around the office for absolutely no reason. Sitting somewhere and starting one conversation that somehow became five different conversations. Laughing over something so stupid that even we would forget why we were laughing. Those everyday things became such a normal part of my life that I never realised how much I would miss them until now.\n\nAnd then there is the other side of us. Somehow, while doing all this mazza masti, we actually made each other better (even when I was already huhhh). You taught me technical analysis, stock picking and ........... and so many little things about the market. I brought you into coding, AI agents, automation and sectoral research. We became each other's unofficial testing department. I would build something and immediately bring it to you. You would find some problem in it. I would fix it. Then you would find another one. Then I would say “ese kese nai banega” and start again. You have probably debugged more of my work than some actual software testers ever will.\n\nBut the thing I value most is that somewhere along the way, you became someone I could talk to without thinking twice. Work, projects, market, life, stupid thoughts, serious thoughts, random nonsense, everything. I never had to make my thoughts sound sensible before telling you because you already knew the full version of me. You have seen my good days (null), confused days (full), my “I have an idea” days, my overexcited AI days and my “bro ab kya karu” days. And somehow you were there through all of them.\n\nI also think we have this very weird ability to make each other better without even trying. You correct me where I am wrong (galat ghatnao p adharit). I correct you where you are wrong (shi kia devsena). You question my ideas. I question yours. We argue, explain, test, fix and then somehow end up laughing again. Basically, two people constantly debugging each other while pretending we have everything figured out.\n\nSo obviously, this had to be written in code.\n\nwhile (life.continues()) {\n    nitisha.debug(shruti);\n    shruti.debug(nitisha);\n   friendship.grow();\n}\n\nAnd before you complain that I am leaving, remember that I am not actually disappearing.  Call me, text me, irritate me, send me some random market thing, ask me to test something, complain about something, or just call me and say something completely unnecessary. I will still listen (aapko sunna hi padega).\n\nI am going to miss my favourite debugger.\n\nI may be leaving the desk, but I really hope we stay deployed for forever.\n\nSee you soon. Very soon.\n\nAt Refinery. <3"
             },
 
             {
                 name: "Ankur Da",
+                pin: "First Trainee",
                 note: "Ankur Da, I think it will always be a little special that I was the very first trainee you inducted into Eureka. We joined around the same time, so in a funny way, while you were figuring out your journey here, I was figuring out mine too. That made those first few days feel a little less unfamiliar.\n\nFrom the beginning, you were always so friendly and approachable that I never really felt like I was talking to HR. You would actually ask how everything was going, whether I was comfortable and if there was anything I needed, rather than just checking whether the formalities were complete. You made those small conversations feel very easy, especially when everything around me was still new.\n\nYou also handled all my paperwork and joining formalities so carefully that I never had to keep wondering whether I had missed something. And whenever I came to you with a doubt, even when it was something small or completely random, you never made me feel like I was asking a silly question. You would patiently explain it and make sure I understood it properly.\n\nSince you were the person who handled so much of my journey right from the beginning, I think I will always associate you with my first days at Eureka. You were quite literally there at the starting point of this whole chapter for me, and you made those first steps much easier than they could have been.\n\nThank you, Ankur Da, for always being approachable, for patiently answering all my random doubts and for making the whole beginning feel comfortable. I am really glad that the first trainee you inducted happened to be me."
             },
 
             {
                 name: "Moubani Dii",
+                pin: "Helper",
                 note: "Moubani Dii, having you around always felt a little like having an elder sister at work who would quietly take care of things before they became our headache. There were so many small office problems that we probably never even had to think about because you were already handling them. Whether it was leave issues, washroom problems, some workplace situation or one of those random things that only we girls understand, somehow you were always there to sort it out.\n\nAnd then there were my reports. You would actually go through the reports I published and check them properly before they went out. That always gave me an extra bit of confidence because I knew someone was looking at my work carefully and would catch something if I had missed it.\n\nThank you for always looking out for me, handling all those things I probably would not have known how to handle myself, and being that elder sister I could count on at work."
             },
 
             {
                 name: "Sayandeep Bhaiya",
+                pin: "Sayan",
                 note: "Sayandeep Bhaiya, even though we did not get the chance to talk very often or work closely together, I have always found you to be such a genuinely good and well mannered person. Sometimes you do not need a long list of memories to appreciate someone. The way a person behaves every day, the way they speak to people and the kind of energy they bring to the workplace says enough. I always found you polite, respectful and easy to be around. I am glad that our paths crossed during my training and that I got to share the same workplace with you. Wishing you lots of happiness, success and good things ahead. It was genuinely nice knowing you, Bhaiya."
             },
 
             {
                 name: "Debansu Bhaiya",
+                pin: "Neighbour in Disguise",
                 note: "Debansu Bhaiya, I think one of the nicest things about talking to you was that it was always so easy. You have this very calm and friendly way of talking that somehow makes even a random conversation feel comfortable. You were always approachable, always willing to listen and always ready to help, whether it was something related to work or something completely random.\n\nI especially enjoyed showing you all the AI agents and random things I kept building. I would come to you with some new idea, explain the whole thing and probably get carried away while explaining it, and you would patiently listen to everything. Then came your classic “Shabaash, lage raho,” followed by some suggestion about how I could make it even better. You never made me feel that I was wasting time experimenting with something different. You actually encouraged me to keep going.\n\nAnd I still cannot forget your advice to build something that nobody has built before. I remember thinking, Bhaiya, if nobody has built it before, how exactly am I supposed to know how to build it? That sentence genuinely stayed with me, though I am still trying to figure out what exactly you expected me to invent.\n\nBut some of my favourite memories with you are actually outside all these work conversations. Since you live near my home, there were times when you would drop me home on your bike, and those rides became their own little conversations. I will especially remember that election day when we had office and you made sure I got picked up and dropped back safely. It was such a simple thing, but it showed the kind of person you are. You notice these things and make sure the other person is okay.\n\nSo whether it was listening to my latest AI experiment, giving me an impossible challenge to build something no one has built, helping me with something at work or simply making sure I got home safely, you have always been someone I could count on.\n\nThank you, Bhaiya, for all the encouragement, all the conversations, all the “Shabaash, lage raho” moments and for being so genuinely thoughtful throughout. I am really glad that somewhere between all the work, AI experiments and rides home, I got to know you beyond just being someone from the office. You are genuinely a great person, and I will definitely miss having you around."
             },
 
             {
                 name: "Rishab Bhaiya",
+                pin: "Raakhi",
                 note: "Rishab Bhaiya, our relationship was never really a typical colleague relationship. You were basically the elder brother I got to annoy every single day. I have teased you probably more than I should have, and I am pretty sure I have even punched you a few times, yet somehow you always remained calm, well mannered and patient with me. I will never forget the phase when I completely lost my voice because of a cold and you decided it was the perfect opportunity to torture me with 'Come on, speak now, speak now.' The moment my voice finally came back, I think I made enough noise to compensate for all the silent days. And then there was our classic automation conversation. I would tell you that I was going to automate your EOD report and you would immediately say that it would cost you your job and tell me to leave it alone. That was always hilarious. But honestly, one of the sweetest things I will remember is when I told you that my tenure was coming to an end and you immediately started saying, 'Don't go, extend it, don't leave.' That genuinely made me realise how much our little sibling bond had grown. I am going to miss irritating you, teasing you and randomly showing up with some new idea. Thank you for always being such a good sport and such a good brother figure. And yes, your EOD report is still in danger of being automated someday."
             },
             
             {
                 name: "Rownak Bhaiya",
+                pin: "Whattt!!!",
                 note: "Rownak Bhaiya, even though we did not get to interact that much during my time at Eureka, there are some people you do not need to know very closely to have a good impression of them. You were always someone I noticed for your nature. You are genuinely kind, fun loving and have this easygoing way of joking around that makes the atmosphere lighter.\n\nI always liked seeing that side of you. You never seemed to take everything too seriously, and there was always some joke or some fun energy around you. Even from the limited conversations we had, I found you very warm and easy to be around, and I genuinely liked your personality.\n\nI just wish we had interacted a little more because I feel we would have had some really fun conversations. But even without that, I am glad I got to know you and share this phase at Eureka with you.\n\nThank you for being the kind, fun loving person you are, Bhaiya. Wishing you lots of happiness, success and many more reasons to keep laughing and making everyone around you laugh too. It was genuinely nice knowing you."
             },
 
             {
                 name: "Subbu Bhaiya",
+                pin: "1001",
                 note: "Subbu Bhaiya, one thing I will definitely remember about you is how your phone calls could suddenly turn the entire floor into a room full of confused spectators. The moment you started speaking rapidly in Tamil with your friends, it honestly sounded like some highly classified encrypted communication that none of us had any chance of understanding. And of course, we could not let that opportunity go to waste. Then there was your famous temper, especially the part where your ears would literally turn red whenever you got angry. Naturally, that became another thing we could never stop teasing you about. But behind all the teasing, you have always been a genuinely good person, and I have really enjoyed having you around. Thank you for all the laughs, the random moments and the personality you brought to the department. I hope life gives you plenty of reasons to smile and considerably fewer reasons to turn those ears red."
             },
 
             {
                 name: "Subhodeep Bhaiya",
+                pin: "1001",
                 note: "Subhodeep Bhaiya, although we did not get many opportunities to interact closely during my training, I have always found you to be a genuinely good and well mannered person. Sometimes there are people you may not speak to every day, but you still remember them positively because of the way they carry themselves and treat everyone around them. That is how I will remember you. It was nice sharing the same workplace with you and being part of the same team during this phase of my journey. Wishing you lots of success, happiness and good experiences ahead. I am glad our paths crossed at Eureka."
             },
 
             {
                 name: "Kaushik Sir",
+                pin: "1001",
                 note: "Kaushik Sir, being the senior most person in our department, you naturally carry so much experience and wisdom, but what I will remember most about you is actually how warm and childlike you could be when it came to sharing happiness with everyone. I still remember your birthday when you brought homemade cake for all of us, arranged snacks and then happily distributed chocolates around the department. There was something so genuinely sweet about the way you did it. It felt less like a formal birthday celebration and more like someone simply wanting everyone around him to enjoy a happy moment together. Those are the little memories that make a workplace feel like more than just a workplace. Thank you for always being a good human being and for bringing that warmth to the department. Wishing you good health, happiness and many more birthdays filled with cake, chocolates and the same childlike excitement."
             },
 
             {
                 name: "Sutapa Dii",
+                pin: "1001",
                 note: "Sutapa Dii, thank you for making F&O feel so much easier for me. Whenever I got stuck, you always had a simple and practical way of explaining things without making them unnecessarily complicated. I genuinely learned a lot from you.\n\nAnd since you are also on your CA journey, there is an extra understanding between us of how demanding this whole process can be. I really wish you the very best for your CA journey. Keep going, Dii, and I hope all the hard work pays off exactly the way you want it to. I will definitely be cheering for you!"
             },
 
             {
                 name: "Dhrubo Sir",
+                pin: "1001",
                 note: "Dhrubo Sir, I honestly cannot imagine the department without your jokes, your laughter and your constant ability to keep everyone entertained. You brought such a lively energy to the floor, but what I will remember most is how you always made sure to check whether I was doing okay. I still smile whenever I remember you saying things like, 'Shruti, very good girl,' and asking whether I had done my puja or kept my Monday Mahadev vrat. Those little comments were so random and so completely you that they became some of my favourite memories. I also have a very special connection with you through the F&O Open Interest work. You could have easily maintained the daily data yourself, but I actually wanted to do it because it gave us a reason to interact every day. I would update the data and report it to you, and that became our little routine. Then when I was leaving, you asked who would update you after I was gone. I told you not to worry because I would automate the whole thing so you would not have to do anything anymore. Seeing how happy you were when I finally showed you the automation was honestly one of my favourite moments. You also made F&O much easier for me by explaining things in such a comfortable and simple way. Thank you for all the laughs, the learning and the affection, Sir. The department is definitely going to feel a little quieter without you asking about my F&O data."
             },
 
             {
                 name: "Chanchal Sir",
+                pin: "1001",
                 note: "Chanchal Sir, working with you on the SMID work was one of the experiences that genuinely added to my learning during this training. I got to see a different side of research while working with you, and your knowledge and understanding of the space taught me a lot. Whenever I had questions or got stuck somewhere, you were always helpful and willing to explain things properly. I really appreciated how approachable you were throughout the work. The experience gave me a better understanding of how to look at companies and sectors with more depth, and I will carry those learnings with me going forward. Thank you for all the guidance and help during the project, Sir. It was genuinely a pleasure getting to work with you."
             },
 
             {
                 name: "Anup Bhaiya (PMS)",
+                pin: "1001",
                 note: "Anup Bhaiya, you were one of those people who somehow made the office feel like a place where work and fun could happily exist together. From the beginning, our vibes just matched, and you always treated me like your little sister. We found a way to create masti literally everywhere. In the department, in the cafe, in the lift and probably in every possible corner of the office where we got a few minutes together. There was never really a normal conversation with us because somehow it always turned into a joke or some random nonsense. I am especially going to remember how you gave me a KitKat on Women's Day. It may have been a small thing, but I still have the wrapper saved, which probably says enough about how much these little memories mean to me. You brought a very different kind of happiness to my everyday office life. Thank you for all the jokes, the teasing, the sibling treatment and all the random moments that made even an ordinary workday more fun. I am definitely going to miss our nonsense, Bhaiya. Please stay exactly the same."
             },
 
             {
                 name: "Halu Da",
+                pin: "1001",
                 note: "Halu Da, I think you deserve a very special mention because you somehow discovered a side of me that almost nobody else in the office knew existed. Everyone knew me as a coffee person, but you somehow realised that there was actually a chai lover hiding inside me. Whenever you made a really good batch of chai, you would come to me and ask me to taste it and tell you how it was. And honestly, those were not ordinary cups of chai. They were genuinely amazing. Eventually, you started giving me chai almost every morning, and whenever you made another particularly good batch during the day or evening, somehow my cup would appear again. That became such a sweet little part of my daily routine that I did not even realise how much I would miss it until now. You never had to do any of that, but you remembered what I liked and made sure I got it. That kind of small, genuine care is something I will always remember. Thank you for every cup of chai, every little 'try this and tell me how it is', and for making my days at the office a little warmer. I may have walked into Eureka as a coffee drinker, but I am definitely leaving as someone who knows where the best chai was."
             }
         ];
@@ -804,7 +846,7 @@
                                  "envelope-card border border-white/10 hover:border-purple-400/50 " +
                                  "hover:-translate-y-2 active:scale-95 overflow-hidden";
                 
-                card.onclick = () => openModal(person);
+                card.onclick = () => requestCardAccess(person);
 
                 card.innerHTML = `
                     <!-- Envelope Flap Geometry -->
@@ -871,6 +913,73 @@
             overlay.classList.remove('hidden');
             overlay.classList.add('flex');
         }
+
+        // --- Passcode Protection Controller ---
+        let pendingMemo = null;
+
+        function requestCardAccess(person) {
+            // If entry has no PIN, open immediately
+            if (!person.pin) {
+                openModal(person);
+                return;
+            }
+
+            pendingMemo = person;
+            document.getElementById('pin-target-name').innerText = person.name;
+            const input = document.getElementById('pin-input');
+            input.value = '';
+            document.getElementById('pin-error-msg').classList.add('hidden');
+            
+            const cardBox = document.getElementById('pin-card-box');
+            cardBox.classList.remove('animate-shake');
+
+            const modal = document.getElementById('pin-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => input.focus(), 80);
+        }
+
+        function handlePinSubmit(e) {
+            if (e) e.preventDefault();
+            const input = document.getElementById('pin-input');
+            const entered = input.value.trim();
+
+            if (pendingMemo && entered === String(pendingMemo.pin).trim()) {
+                const target = pendingMemo;
+                closePinModal();
+                openModal(target);
+            } else {
+                const err = document.getElementById('pin-error-msg');
+                err.classList.remove('hidden');
+                
+                const cardBox = document.getElementById('pin-card-box');
+                cardBox.classList.remove('animate-shake');
+                void cardBox.offsetWidth; // retrigger shake
+                cardBox.classList.add('animate-shake');
+                
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        // Auto-check on 4-digit entry so user doesn't have to press enter
+        function checkPinLength() {
+            const input = document.getElementById('pin-input');
+            if (pendingMemo && input.value.length === String(pendingMemo.pin).length) {
+                handlePinSubmit();
+            }
+        }
+
+        function closePinModal() {
+            const modal = document.getElementById('pin-modal');
+            modal.style.display = 'none';
+            pendingMemo = null;
+        }
+
+        // Close on clicking modal backdrop
+        window.addEventListener('click', (e) => {
+            const pinModal = document.getElementById('pin-modal');
+            if (e.target === pinModal) closePinModal();
+        });
 
         function closeModal() {
             document.getElementById('modal-overlay').classList.add('hidden');
@@ -959,5 +1068,67 @@
             }
         });
     </script>
+    <!-- Terminal Passcode Verification Modal -->
+    <div id="pin-modal" style="display: none;" class="fixed inset-0 z-[10001] bg-black/85 backdrop-blur-md items-center justify-center p-4">
+        <div id="pin-card-box" class="modal-glass relative w-full max-w-sm rounded-2xl p-7 font-mono text-center shadow-[0_20px_60px_rgba(0,0,0,0.85)] border border-purple-500/30 bg-[#0c0d18]">
+            
+            <!-- Window Bar -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-5">
+                <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-rose-500/80 inline-block"></span>
+                    <span class="w-2 h-2 rounded-full bg-amber-500/80 inline-block"></span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-500/80 inline-block"></span>
+                    <span class="text-zinc-500 text-[10px] ml-2 tracking-widest uppercase">AUTH_GATE.SH</span>
+                </div>
+                <button type="button" onclick="closePinModal()" class="text-zinc-500 hover:text-white text-sm cursor-pointer">✕</button>
+            </div>
+
+            <!-- Lock Icon with Glow -->
+            <div class="relative w-14 h-14 mx-auto mb-4 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-2xl bg-purple-600/20 blur-lg"></div>
+                <div class="relative w-full h-full rounded-2xl bg-purple-950/50 border border-purple-500/40 flex items-center justify-center text-xl shadow-inner">
+                    🔐
+                </div>
+            </div>
+
+            <!-- Target Header -->
+            <p class="text-[10px] text-purple-400 font-semibold tracking-[0.2em] uppercase mb-1">Encrypted Payload</p>
+            <h3 id="pin-target-name" class="text-lg font-bold text-white tracking-tight mb-2">Sealed Memo</h3>
+            <p class="text-[11px] text-zinc-400 mb-6 leading-relaxed">
+                Enter your secret desk key or PIN to decrypt and read this letter.
+            </p>
+
+            <!-- PIN Form -->
+            <form onsubmit="handlePinSubmit(event)" class="space-y-4">
+                <div class="relative">
+                    <input type="password" 
+                           id="pin-input" 
+                           placeholder="••••" 
+                           maxlength="8"
+                           autocomplete="off"
+                           oninput="checkPinLength()"
+                           class="w-full text-center text-xl font-bold tracking-[0.4em] bg-white/[0.04] border border-white/15 focus:border-purple-400 rounded-xl px-4 py-3 text-white focus:outline-none shadow-inner transition-all placeholder:text-zinc-600 placeholder:tracking-widest" 
+                           required>
+                </div>
+
+                <p id="pin-error-msg" class="text-rose-400 text-[11px] font-mono hidden tracking-wide">
+                    ⚠ ACCESS DENIED: Invalid Passcode
+                </p>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closePinModal()" 
+                            class="flex-1 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-white text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer">
+                        Cancel
+                    </button>
+                    <button type="submit" 
+                            id="unlock-submit-btn"
+                            class="flex-1 py-2.5 rounded-xl bg-purple-600/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 hover:text-white text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-[0_0_15px_rgba(168,85,247,0.25)]">
+                        Unlock &rarr;
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
 </body>
 </html>
