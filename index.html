@@ -7,6 +7,16 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+   <!-- Tab Favicon (Eureka Desk Emblem) -->
+    <link rel="icon" type="image/png" href="images-removebg-preview (1).png">
+
+    <!-- Meta Description & Social Share Previews -->
+    <meta name="description" content="Industrial training sign-off & personal desk memos — Eureka Research Desk.">
+    <meta property="og:title" content="Before I Sign Off | Eureka Research Desk">
+    <meta property="og:description" content="Handover complete, models saved, and personal memos sealed for the team.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#05050a">       
     
     <!-- External Libraries -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -140,16 +150,32 @@
             opacity: 0.9;
         }
 
-        #cards-grid {
+       #cards-grid {
             display: grid !important;
-            grid-template-columns: repeat(4, 1fr) !important;
-            gap: 28px !important;
+            grid-template-columns: repeat(1, 1fr) !important;
+            gap: 20px !important;
             max-width: 1280px !important;
             margin: 0 auto !important;
             padding: 30px 16px !important;
+            justify-items: center !important;
+        }
+        
+        @media (min-width: 640px) {
+            #cards-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            #cards-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 28px !important;
+            }
         }
 
         #cards-grid > * {
+            width: 100% !important;
+            max-width: 280px !important; /* keeps envelopes looking proportional on mobile */
             min-height: 240px !important;
             padding: 24px !important;
         }
@@ -308,10 +334,10 @@
                 </p>
 
                 <p>
-                    That said, consider this an intermission rather than a goodbye, just a necessary pause to lock in for CA Finals prep so I can rejoin the team full-time on the other side. 
+                   Consider this as a temporary trading halt rather than a delisting. Just an intermission to tackle CA Finals so I can rejoin the desk full-time. 
                 </p>
                 <p>
-                    Before I clear my screen, I’ve penned down a few words for each of you.
+                    Before I log out and hand over my screens, I’ve left a few personal notes for each of you.
                 </p>
 
                 <!-- Action Button -->
@@ -359,19 +385,23 @@
                 </h1>
                 <div class="space-y-6 text-gray-200 text-lg md:text-xl font-light leading-relaxed max-w-2xl drop-shadow-md">
                     <p class="reveal-element delay-1">
-                        Closing my terminal tabs before Excel finds another reason to freeze on me. 
-                    </p>    
+                        It’s surreal to realize that a full year of industrial training wraps up right here at this desk.
+                    </p>
+                    
                     <p class="reveal-element delay-1">
-                        Handing over my models and stepping away for a bit, but don't celebrate just yet. This a strategic market pause rather than an exit. 
+                        I walked into Eureka as a blank canvas with zero market experience and endless confusion. Today, I’m stepping away with real conviction, lifelong mentors, and memories tucked into every corner of this floor—from morning tea runs to 3:29 PM market scrambles.
                     </p>
+                    
                     <p class="reveal-element delay-2">
-                        Thank you for the patience, the guidance, and the constant banter between market hours and beyond. 
+                        Closing my terminal tabs, dumping my cache, and saving everything four times over before Excel finds another excuse to crash on me or before someone assigns another ad-hoc sectoral note.
                     </p>
+                    
                     <p class="reveal-element delay-2">
-                        Don’t get too comfortable with the desk being quiet. 
+                        Thank you for the patience, the guidance, and the constant banter between market hours and beyond.
                     </p>
-                    <p class="reveal-element delay-2">
-                        See you all very soon.
+                    
+                    <p class="reveal-element delay-3 text-white font-medium">
+                        See you all very soon as a qualified CA!
                     </p>
                 </div>
                 <div class="reveal-element delay-3 flex flex-wrap gap-3 mt-10">
@@ -459,7 +489,7 @@
             <div class="max-w-6xl mx-auto px-4 w-full">
                 <h2 class="text-3xl font-bold tracking-tight text-white mb-2">A few words, for each of you.</h2>
                 <p class="text-sm md:text-base text-zinc-400 mb-10 w-full max-w-full leading-relaxed">
-                    My industrial training journey wraps up here, but the journey doesn’t end. Signing off for my Finals preparation, with hopes of returning soon and continuing the journey with the same curiosity, learning, and enthusiasm.
+                    Every conversation, debate, and late-afternoon lesson left a mark. Decrypt your memo below for a personal note from my time working alongside you.
                 </p>
 
                 <!-- Static Square Cards Grid -->
@@ -478,13 +508,12 @@
             </div>
 
             <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-3">
-                Intermission, Not Goodbye.
+                Terminal Offline.
             </h2>
             
             <p class="text-sm md:text-base text-zinc-400 max-w-lg mx-auto leading-relaxed mb-8">
                 Positions closed. Models saved. Handover complete.<br>
-                Signing off for CA Finals prep.<br>
-                See you all on the other side as a full-time teammate!
+                Signing off for now.
             </p>
 
             <!-- Connect Links / Terminal Status Trigger -->
@@ -497,7 +526,7 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
-                    <span class="tracking-widest uppercase font-semibold pointer-events-none">CONNECT // TERMINAL STATUS</span>
+                    <span class="tracking-widest uppercase font-semibold pointer-events-none">CONNECT</span>
                     <span class="text-purple-400 group-hover:translate-x-1 transition-transform pointer-events-none">&rarr;</span>
                 </button>
             </div>
@@ -589,29 +618,29 @@
                     <span class="text-rose-400 font-bold tracking-wider">404: ANALYST_NOT_FOUND</span>
                 </div>
                 <div class="flex justify-between items-center border-b border-white/5 pb-2">
-                    <span class="text-zinc-500">DESK_STATE:</span>
-                    <span class="text-amber-400 font-bold">AFK_UNTIL_RESULTS</span>
+                    <span class="text-zinc-500">EXCEL_CRASH_RISK:</span>
+                    <span class="text-amber-400 font-bold">0% (WORKBOOKS_HANDED_OVER)</span>
                 </div>
                 <div class="flex justify-between items-center border-b border-white/5 pb-2">
-                    <span class="text-zinc-500">EXCEL_PROCESSES:</span>
-                    <span class="text-zinc-400">DUMPED TO EXAM PREP</span>
+                    <span class="text-zinc-500">UNSANCTIONED_AI_SCRIPTS:</span>
+                    <span class="text-zinc-400">STILL_RUNNING_SOMEWHERE</span>
                 </div>
                 <div class="flex justify-between items-center border-b border-white/5 pb-2">
-                    <span class="text-zinc-500">PING_LATENCY:</span>
-                    <span class="text-purple-400 font-semibold">INF (DO NOT DISTURB)</span>
+                    <span class="text-zinc-500">RESPONSE_TIME:</span>
+                    <span class="text-purple-400 font-semibold">DO NOT DISTURB</span>
                 </div>
             </div>
 
-            <!-- Sarcastic Desk Notice -->
+           <!-- Sarcastic Desk Notice -->
             <div class="p-4 rounded-xl bg-purple-950/20 border border-purple-500/20 text-[11.5px] leading-relaxed text-zinc-300 space-y-2 mb-6">
                 <p class="text-purple-300 font-semibold">
                     &gt; SYSTEM NOTICE:
                 </p>
                 <p>
-                    Regular desk communications have been severed for the CA Finals gauntlet. No stock recommendations, no last-minute DCF debugging, and no unapproved tea runs will be entertained.
+                    Regular desk communications have been severed. No emergency stock recommendations, no last-minute DCF debugging, and no unapproved tea runs will be entertained.
                 </p>
                 <p class="text-zinc-400 italic">
-                    Direct pings will remain queued in limbo until post-result convocation. If a model crashes in my absence, check row 847.
+                    If an Excel model crashes in my absence, check row 847. If an automation script breaks, don't look at me - blame the API.
                 </p>
             </div>
 
@@ -1030,6 +1059,15 @@
                 enterBtn.onclick = () => enterExperience();
             }
         });
+        // --- Close modals with Escape key ---
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                closePinModal();
+                closeGuestbook();
+                closeEasterEgg('terminal-status-modal');
+            }
+        });
     </script>
     
     <!-- Terminal Passcode Verification Modal -->
@@ -1059,7 +1097,7 @@
             <p class="text-[10px] text-purple-400 font-semibold tracking-[0.2em] uppercase mb-1">Encrypted Payload</p>
             <h3 id="pin-target-name" class="text-lg font-bold text-white tracking-tight mb-2">Sealed Memo</h3>
             <p class="text-[11px] text-zinc-400 mb-6 leading-relaxed">
-                Enter your secret desk key or PIN to decrypt and read this letter.
+                Enter your secret desk key to decrypt this letter.
             </p>
 
             <!-- PIN Form -->
