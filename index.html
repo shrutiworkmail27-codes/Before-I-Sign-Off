@@ -216,6 +216,12 @@
         .animate-shake {
             animation: pinShake 0.4s ease-in-out;
         }
+
+        #particles-js, 
+        #particles-js canvas,
+        .nebula-bg {
+            pointer-events: none !important;
+        }
     </style>
 </head>
 <body class="selection:bg-purple-500/30 selection:text-white">
@@ -311,12 +317,13 @@
                 <!-- Action Button -->
                 <div class="pt-3 pb-2">
                     <button type="button" 
-                            id="enter-btn"
-                            onclick="enterExperience()" 
-                            class="group inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-sm sm:text-base shadow-[0_8px_25px_rgba(147,51,234,0.35)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer border border-purple-400/30">
-                        <span class="pointer-events-none">View Personal Memos</span>
-                        <span class="text-base transition-transform duration-200 group-hover:translate-x-1 pointer-events-none">&rarr;</span>
-                    </button>
+                        id="enter-btn"
+                        onclick="enterExperience()" 
+                        style="position: relative; z-index: 99999; pointer-events: auto !important; cursor: pointer !important;"
+                        class="group inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-sm sm:text-base shadow-[0_8px_25px_rgba(147,51,234,0.35)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 border border-purple-400/30">
+                    <span>View Personal Memos</span>
+                    <span class="text-base transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+                </button>
                 </div>
 
                 <!-- Signature Section -->
@@ -691,38 +698,38 @@
             const emailScreen = document.getElementById('email-screen');
             const mainSite = document.getElementById('main-site');
             
-            if (emailScreen) emailScreen.classList.add('email-screen-exit');
+            if (emailScreen) {
+                emailScreen.classList.add('email-screen-exit');
+                emailScreen.style.pointerEvents = 'none'; // stops blocking immediately
+            }
             
+            if (mainSite) {
+                mainSite.classList.remove('hidden');
+                void mainSite.offsetWidth;
+                mainSite.classList.add('site-active');
+            }
+            
+            const neb = document.getElementById('nebula');
+            if (neb) neb.style.opacity = '1';
+        
+            const part = document.getElementById('particles-js');
+            if (part) part.style.opacity = '1';
+        
+            const ticker = document.getElementById('desk-ticker');
+            if (ticker) ticker.style.opacity = '1';
+            
+            const gbBtn = document.getElementById('guestbook-btn');
+            if (gbBtn) {
+                gbBtn.classList.remove('hidden'); 
+                setTimeout(() => gbBtn.classList.remove('opacity-0'), 100);
+            }
+        
             setTimeout(() => {
                 if (emailScreen) emailScreen.style.display = 'none';
-                if (mainSite) mainSite.classList.remove('hidden');
-                
-                const neb = document.getElementById('nebula');
-                if (neb) neb.style.opacity = '1';
-
-                const part = document.getElementById('particles-js');
-                if (part) part.style.opacity = '1';
-
-                const ticker = document.getElementById('desk-ticker');
-                if (ticker) ticker.style.opacity = '1';
-                
-                const gbBtn = document.getElementById('guestbook-btn');
-                if (gbBtn) {
-                    gbBtn.classList.remove('hidden'); 
-                    setTimeout(() => gbBtn.classList.remove('opacity-0'), 100);
-                }
-
-                if (mainSite) {
-                    void mainSite.offsetWidth;
-                    mainSite.classList.add('site-active');
-                }
-
-                if(autoScrollTo) {
-                    setTimeout(() => {
-                        const gridSec = document.getElementById('grid-section');
-                        if (gridSec) gridSec.scrollIntoView({ behavior: 'smooth' });
-                        openModal(autoScrollTo);
-                    }, 800);
+                if (autoScrollTo) {
+                    const gridSec = document.getElementById('grid-section');
+                    if (gridSec) gridSec.scrollIntoView({ behavior: 'smooth' });
+                    openModal(autoScrollTo);
                 }
             }, 1000); 
         }
