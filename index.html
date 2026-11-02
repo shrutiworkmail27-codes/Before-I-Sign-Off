@@ -630,8 +630,13 @@
         const cursorRing = document.getElementById('cursor-ring');
         
         window.addEventListener('mousemove', (e) => {
-            cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px';
-            setTimeout(() => { cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; }, 50);
+            if (!cursorDot || !cursorRing) return;
+            cursorDot.style.left = e.clientX + 'px'; 
+            cursorDot.style.top = e.clientY + 'px';
+            setTimeout(() => { 
+                cursorRing.style.left = e.clientX + 'px'; 
+                cursorRing.style.top = e.clientY + 'px'; 
+            }, 50);
         });
         window.addEventListener('mousedown', () => document.body.classList.add('clicking'));
         window.addEventListener('mouseup', () => document.body.classList.remove('clicking'));
@@ -661,51 +666,65 @@
         }
 
         // Initialize Clean Particles
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 80 },
-                "color": { "value": "#ffffff" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": true },
-                "size": { "value": 2, "random": true },
-                "line_linked": { "enable": false },
-                "move": { "enable": true, "speed": 0.5, "direction": "top", "straight": false, "out_mode": "out" }
-            },
-            "interactivity": { 
-                "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": false } },
-                "modes": { "bubble": { "distance": 200, "size": 4, "duration": 2, "opacity": 1, "speed": 3 } }
-            },
-            "retina_detect": true
-        });
+        try {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 80 },
+                    "color": { "value": "#ffffff" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.5, "random": true },
+                    "size": { "value": 2, "random": true },
+                    "line_linked": { "enable": false },
+                    "move": { "enable": true, "speed": 0.5, "direction": "top", "straight": false, "out_mode": "out" }
+                },
+                "interactivity": { 
+                    "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": false } },
+                    "modes": { "bubble": { "distance": 200, "size": 4, "duration": 2, "opacity": 1, "speed": 3 } }
+                },
+                "retina_detect": true
+            });
+        } catch (err) {
+            console.warn("Particles config skipped:", err);
+        }
 
         function enterExperience(autoScrollTo = null) {
             const emailScreen = document.getElementById('email-screen');
             const mainSite = document.getElementById('main-site');
             
-            emailScreen.classList.add('email-screen-exit');
+            if (emailScreen) emailScreen.classList.add('email-screen-exit');
             
             setTimeout(() => {
-                emailScreen.style.display = 'none';
-                mainSite.classList.remove('hidden');
+                if (emailScreen) emailScreen.style.display = 'none';
+                if (mainSite) mainSite.classList.remove('hidden');
                 
-                document.getElementById('nebula').style.opacity = '1';
-                document.getElementById('particles-js').style.opacity = '1';
-                document.getElementById('desk-ticker').style.opacity = '1';
+                const neb = document.getElementById('nebula');
+                if (neb) neb.style.opacity = '1';
+
+                const part = document.getElementById('particles-js');
+                if (part) part.style.opacity = '1';
+
+                const ticker = document.getElementById('desk-ticker');
+                if (ticker) ticker.style.opacity = '1';
                 
                 const gbBtn = document.getElementById('guestbook-btn');
-                gbBtn.classList.remove('hidden'); 
-                setTimeout(() => gbBtn.classList.remove('opacity-0'), 100);
+                if (gbBtn) {
+                    gbBtn.classList.remove('hidden'); 
+                    setTimeout(() => gbBtn.classList.remove('opacity-0'), 100);
+                }
 
-                void mainSite.offsetWidth;
-                mainSite.classList.add('site-active');
+                if (mainSite) {
+                    void mainSite.offsetWidth;
+                    mainSite.classList.add('site-active');
+                }
 
                 if(autoScrollTo) {
                     setTimeout(() => {
-                        document.getElementById('grid-section').scrollIntoView({ behavior: 'smooth' });
+                        const gridSec = document.getElementById('grid-section');
+                        if (gridSec) gridSec.scrollIntoView({ behavior: 'smooth' });
                         openModal(autoScrollTo);
                     }, 800);
                 }
-            }, 1400); 
+            }, 1000); 
         }
 
         const teamData = [
@@ -718,13 +737,13 @@
             {
                 name: "Anup Sir",
                 pin: "The Kung Fu Master",
-                note: "Anup Sir,\n\nLooking back at this entire year, I realise how much of the professional I have become today was shaped by you. Agar aaj mai thodi si bhi better analyst lagti hu ya market ko dhang se dekh paati hu, the credit is entirely yours.\n\nWhen I first walked into Eureka, I was literally a blank canvas with no prior experience, no big credentials, bas thoda sa raw enthusiasm aur bohot saara confusion. Any other manager would have preferred someone who could hit the ground running from day one, par aapne mujh jaisi completely unpolished fresher pe bharosa dikhaya aur mujhe learn karne ka ek open platform diya. That one chance changed bahot kch for me. You once told me that I was performing beyond your expectations, but sir that performance only came because of you. Your training, your depth of knowledge, and the way you taught me how to think.\n\nI still vividly remember our early days. Jab aap mujhe wo lambe-lambe data sheets aur repetitive copy-paste assignments dete the, making me think everytime 'Sir mujhe real analysis kab karne denge?' Maine aapse kitni baar complain bhi kiya tha. But each time aap patiently mereko apna famous Kung Fu example smjhate the: 'Pehle repetitive punches aur basic stances master karo, foundation wahi se banti hai fr tabhi real battleground ke liye taiyaar hogi.' That day it clicked. Mujhe samajh aaya ki meri Kung Fu training chal rahi hai, and I was getting the absolute best mentorship anyone could ask for. Aaj jab maine sector, model, ya annual report ko dekhti hu, tab samajh aata hai ki aap mujhe sirf kaam nahi de rahe the you were quietly building me, layer by layer.\n\nPar aapka training style sabse unique isliye tha because you never put boundaries around my curiosity. Aapne mujhe kabhi sirf traditional research tak baandh kar nahi rakha. Jab maine AI, automation, aur agentic workflows ke sath experiment karna shuru kiya, any conventional manager would have said, 'Focus on your core deliverables.' Par aapne kaha, 'Karo, experiment karo, naye tareeqe dhoondo... make yourself better.' Aapne mujhe fail hone ki bhi poori azaadi di, and I was never afraid to fall because I knew that if I hit a wall, you were right there to help me rise again. You taught me that research isn't just about reading what others have already written; it’s about having the courage to build what doesn't exist yet. And beyond the models and spreadsheets, you taught me how to read between the lines, look beyond what is written in numbers, and understand the real pulse behind a business. You recommended books to me also and they were never just reading materia, they changed how I see the world. Long after this training, every time I pick up those books or apply their principles, it will instantly remind me of you and the standard of thinking you set for me.\n\nYou didn't just train me, Sir you brought out a version of Shruti that even I didn't know existed. You were truly like a jeweller who saw the diamond hidden inside a rough stone and had the patience to shape it. Aur aapke wo chhote-chhote words: 'You will do it dekhna,' 'Tumhari memory kamaal ki hai,' 'You exceeded my expectations,' aur 'Achhe se padho aur CA bano' aap shayad casually bolte the, but on my lowest, most overwhelmed days, your words were my biggest anchor.\n\nAur kaam se pare, whenever I felt stuck like office dynamics ho, personal challenges ho, ya CA studies ka endless stress, You were always there to listen and solve everything effortlessly.\n\nDesk chhoot raha hai Sir, par aapka sikhaya hua ek-ek lesson, aapka work ethic, aur aapki approach mere sath hamesha rahegi. I may be signing off from Eureka, but you are my Guru for life, and this bond isn't going anywhere. Mai CA Finals ke dauran bhi aapko apne updates deti rahungi. And yes, agr aapko kabhi kisi research, model, ya automation project me meri zaroorat lage, I will always be ready to contribute. Aapke guidance aur mentorship ki zaroorat mujhe aage life ke har mod pe hamesha padegi.\n\nThank you for believing in me when I had nothing on my resume. Thank you for being my mentor, my sounding board, and the finest manager I could have ever asked for. \n\n A huge part of whatever I achieve going forward will always have your influence behind it."
+                note: "Anup Sir,\n\nLooking back at this entire year, I realise how much of the professional I have become today was shaped by you. Agar aaj mai thodi si bhi better analyst lagti hu ya market ko dhang se dekh paati hu, the credit is entirely yours.\n\nWhen I first walked into Eureka, I was literally a blank canvas with no prior experience, no big credentials, bas thoda sa raw enthusiasm aur bohot saara confusion. Any other manager would have preferred someone who could hit the ground running from day one, par aapne mujh jaisi completely unpolished fresher pe bharosa dikhaya aur mujhe learn karne ka ek open platform diya. That one chance changed bahot kch for me. You once told me that I was performing beyond your expectations, but sir that performance only came because of you. Your training, your depth of knowledge, and the way you taught me how to think.\n\nI still vividly remember our early days. Jab aap mujhe wo lambe-lambe data sheets aur repetitive copy-paste assignments dete the, making me think everytime 'Sir mujhe real analysis kab karne denge?' Maine aapse kitni baar complain bhi kiya tha. But each time aap patiently mereko apna famous Kung Fu example smjhate the: 'Pehle repetitive punches aur basic stances master karo, foundation wahi se banti hai fr tabhi real battleground ke liye taiyaar hogi.' That day it clicked. Mujhe samajh aaya ki meri Kung Fu training chal rahi hai, and I was getting the absolute best mentorship anyone could ask for. Aaj jab maine sector, model, ya annual report ko dekhti hu, tab samajh aata hai ki aap mujhe sirf kaam nahi de rahe the you were quietly building me, layer by layer.\n\nPar aapka training style sabse unique isliye tha because you never put boundaries around my curiosity. Aapne mujhe kabhi sirf traditional research tak baandh kar nahi rakha. Jab maine AI, automation, aur agentic workflows ke sath experiment karna shuru kiya, any conventional manager would have said, 'Focus on your core deliverables.' Par aapne kaha, 'Karo, experiment karo, naye tareeqe dhoondo... make yourself better.' Aapne mujhe fail hone ki bhi poori azaadi di, and I was never afraid to fall because I knew that if I hit a wall, you were right there to help me rise again. You taught me that research isn't just about reading what others have already written; it’s about having the courage to build what doesn't exist yet. And beyond the models and spreadsheets, you taught me how to read between the lines, look beyond what is written in numbers, and understand the real pulse behind a business. You recommended books to me also and they were never just reading materia, they changed how I see the world. Long after this training, every time I pick up those books or apply their principles, it will instantly remind me of you and the standard of thinking you set for me.\n\nYou didn't just train me, Sir you brought out a version of Shruti that even I didn't know existed. You were truly like a jeweller who saw the diamond hidden inside a rough stone and had the patience to shape it. Aur aapke wo chhote-chhote words: 'You will do it dekhna,' 'Tumhari memory kamaal ki hai,' 'You exceeded my expectations,' aur 'Achhe se padho aur CA bano' aap shayad casually bolte the, but on my lowest, most overwhelmed days, your words were my biggest anchor.\n\nAur kaam se pare, whenever I felt stuck like office dynamics ho, personal challenges ho, ya CA studies ka endless stress, You were always there to listen and solve everything effortlessly.\n\nDesk chhoot raha hai Sir, par aapka sikhaya hua ek-ek lesson, aapka work ethic, aur aapki approach mere sath hamesha rahegi. I may be signing off from Eureka, but you are my Guru for life, and this bond isn't going anywhere. Mai CA Finals ke dauran bhi aapko apne updates deti rahungi. And yes, agr aapko kabhi kisi research, model, ya automation project me meri zaroorat lage, I will always be ready to contribute. Aapke guidance aur mentorship ki zaroorat mujhe aage life ke har mod pe hamesha padegi.\n\nThank you for believing in me when I had nothing on my resume. Thank you for being my mentor, my sounding board, and the finest manager I could have ever asked for.\n\nA huge part of whatever I achieve going forward will always have your influence behind it."
             },
 
             {
                 name: "Nitisha <3",
                 pin: "My Person",
-                note: "Broooo, I genuinely don't know how to write this one because there is way too much to fit into one note. And knowing us, even if I write ten pages, we will probably still remember some completely random thing and say, “Areee ye toh likha hi nahi.” So I am going to try keeping it short (chhoti chhoti chizo me khushi......).\n\nYou were not just my desk partner at Eureka. You somehow became my person there. And I still find it funny that our seats got changed because apparently (according to cctv) we talked too much (ayy lrki bahot chapar chapar krti ho). To this day, I genuinely do not understand what exactly they thought we were discussing all day (ye raaj bhi usi k sath chala gya). Because yes, we talked a lot, but half the time it was work, projects, some random idea, some stupid problem, some completely unnecessary discussion or something that only the two of us would find funny.\n\nSome of my favourite memories with you are actually the smallest ones. Going downstairs together. Eating together. Roaming around the office for absolutely no reason. Sitting somewhere and starting one conversation that somehow became five different conversations. Laughing over something so stupid that even we would forget why we were laughing. Those everyday things became such a normal part of my life that I never realised how much I would miss them until now.\n\nAnd then there is the other side of us. Somehow, while doing all this mazza masti, we actually made each other better (even when I was already huhhh). You taught me technical analysis, stock picking and ........... and so many little things about the market. I brought you into coding, AI agents, automation and sectoral research. We became each other's unofficial testing department. I would build something and immediately bring it to you. You would find some problem in it. I would fix it. Then you would find another one. Then I would say “ese kese nai banega” and start again. You have probably debugged more of my work than some actual software testers ever will.\n\nBut the thing I value most is that somewhere along the way, you became someone I could talk to without thinking twice. Work, projects, market, life, stupid thoughts, serious thoughts, random nonsense, everything. I never had to make my thoughts sound sensible before telling you because you already knew the full version of me. You have seen my good days (null), confused days (full), my “I have an idea” days, my overexcited AI days and my “bro ab kya karu” days. And somehow you were there through all of them.\n\nI also think we have this very weird ability to make each other better without even trying. You correct me where I am wrong (galat ghatnao p adharit). I correct you where you are wrong (shi kia devsena). You question my ideas. I question yours. We argue, explain, test, fix and then somehow end up laughing again. Basically, two people constantly debugging each other while pretending we have everything figured out.\n\nSo obviously, this had to be written in code.\n\nwhile (life.continues()) {\n    nitisha.debug(shruti);\n    shruti.debug(nitisha);\n   friendship.grow();\n}\n\nAnd before you complain that I am leaving, remember that I am not actually disappearing.  Call me, text me, irritate me, send me some random market thing, ask me to test something, complain about something, or just call me and say something completely unnecessary. I will still listen (aapko sunna hi padega).\n\nI am going to miss my favourite debugger.\n\nI may be leaving the desk, but I really hope we stay deployed for forever.\n\nSee you soon. Very soon.\n\nAt Refinery. <3"
+                note: "Broooo, I genuinely don't know how to write this one because there is way too much to fit into one note. And knowing us, even if I write ten pages, we will probably still remember some completely random thing and say, “Areee ye toh likha hi nahi.” So I am going to try keeping it short (chhoti chhoti chizo me khushi......).\n\nYou were not just my desk partner at Eureka. You somehow became my person there. And I still find it funny that our seats got changed because apparently (according to cctv) we talked too much (ayy lrki bahot chapar chapar krti ho). To this day, I genuinely do not understand what exactly they thought we were discussing all day (ye raaj bhi usi k sath chala gya). Because yes, we talked a lot, but half the time it was work, projects, some random idea, some stupid problem, some completely unnecessary discussion or something that only the two of us would find funny.\n\nSome of my favourite memories with you are actually the smallest ones. Going downstairs together. Eating together. Roaming around the office for absolutely no reason. Sitting somewhere and starting one conversation that somehow became five different conversations. Laughing over something so stupid that even we would forget why we were laughing. Those everyday things became such a normal part of my life that I never realised how much I would miss them until now.\n\nAnd then there is the other side of us. Somehow, while doing all this mazza masti, we actually made each other better (even when I was already huhhh). You taught me technical analysis, stock picking and ........... and so many little things about the market. I brought you into coding, AI agents, automation and sectoral research. We became each other's unofficial testing department. I would build something and immediately bring it to you. You would find some problem in it. I would fix it. Then you would find another one. Then I would say “ese kese nai banega” and start again. You have probably debugged more of my work than some actual software testers ever will.\n\nBut the thing I value most is that somewhere along the way, you became someone I could talk to without thinking twice. Work, projects, market, life, stupid thoughts, serious thoughts, random nonsense, everything. I never had to make my thoughts sound sensible before telling you because you already knew the full version of me. You have seen my good days (null), confused days (full), my “I have an idea” days, my overexcited AI days and my “bro ab kya karu” days. And somehow you were there through all of them.\n\nI also think we have this very weird ability to make each other better without even trying. You correct me where I am wrong (galat ghatnao p adharit). I correct you where you are wrong (shi kia devsena). You question my ideas. I question yours. We argue, explain, test, fix and then somehow end up laughing again. Basically, two people constantly debugging each other while pretending we have everything figured out.\n\nSo obviously, this had to be written in code.\n\nwhile (life.continues()) {\n    nitisha.debug(shruti);\n    shruti.debug(nitisha);\n    friendship.grow();\n}\n\nAnd before you complain that I am leaving, remember that I am not actually disappearing. Call me, text me, irritate me, send me some random market thing, ask me to test something, complain about something, or just call me and say something completely unnecessary. I will still listen (aapko sunna hi padega).\n\nI am going to miss my favourite debugger.\n\nI may be leaving the desk, but I really hope we stay deployed for forever.\n\nSee you soon. Very soon.\n\nAt Refinery. <3"
             },
 
             {
@@ -736,7 +755,7 @@
             {
                 name: "Moubani Dii",
                 pin: "Proofreader",
-                note: "Moubani Dii,\n\nSach bolu toh, having you around never really felt like just having a colleague, it felt like having an elder sister right there at work. As girls in a fast-paced office, there are so many small, unspoken things that you can’t explain to just anyone. Whether it was leave coordination, washroom issues, random floor awkwardness, or just one of those overwhelming days where only another girl truly understands what’s going on aap bina bole samajh jaati thi aur humare bolne se pehle hi quietly sort kar deti thi. So many headaches never even reached us simply because you were standing in between.\n\nAnd then came my reports. Starting out, I used to be nervous about publishing my research, but knowing that you were going through them before they went out was my biggest relief. You checked them so thoroughly and patiently that it gave me that extra layer of confidence ki chalo, agar mujhse kuch chhoot bhi gaya hoga, toh Dii sambhal lengi. You were like my safety net.\n\nWorkplaces can be intimidating, but people like you make them feel safe, human, and warm. \n\n Thank you for always looking out for me, for handling the behind-the-scenes chaos with so much grace, and for being that sisterly comfort I could count on whenever I needed it.\n\nI am genuinely going to miss your warmth, your guidance, and having you just a glance away. Please take care of yourself and let’s definitely stay connected!"
+                note: "Moubani Dii,\n\nSach bolu toh, having you around never really felt like just having a colleague, it felt like having an elder sister right there at work. As girls in a fast-paced office, there are so many small, unspoken things that you can’t explain to just anyone. Whether it was leave coordination, washroom issues, random floor awkwardness, or just one of those overwhelming days where only another girl truly understands what’s going on aap bina bole samajh jaati thi aur humare bolne se pehle hi quietly sort kar deti thi. So many headaches never even reached us simply because you were standing in between.\n\nAnd then came my reports. Starting out, I used to be nervous about publishing my research, but knowing that you were going through them before they went out was my biggest relief. You checked them so thoroughly and patiently that it gave me that extra layer of confidence ki chalo, agar mujhse kuch chhoot bhi gaya hoga, toh Dii sambhal lengi. You were like my safety net.\n\nWorkplaces can be intimidating, but people like you make them feel safe, human, and warm.\n\nThank you for always looking out for me, for handling the behind-the-scenes chaos with so much grace, and for being that sisterly comfort I could count on whenever I needed it.\n\nI am genuinely going to miss your warmth, your guidance, and having you just a glance away. Please take care of yourself and let’s definitely stay connected!"
             },
 
             {
@@ -748,13 +767,13 @@
             {
                 name: "Debansu Bhaiya",
                 pin: "Shabaash",
-                note: "Debansu Bhaiya, I think one of the nicest things about talking to you was that it was always so easy. You have this very calm and friendly way of talking that somehow makes even a random conversation feel comfortable. You have this effortless, calm composure that instantly puts anyone at ease chahe kaam ki serious baat ho ya bas koi random bakbak.\n\nI especially loved running to you with all my wacky AI agents, automation scripts, aur experiments. Aadhe time mai itni overexcited hoti thi ki bina saas liye poora logic bol jaati thi (still u understood everything), aur aap aaram se poori baat sunte the. Fir aata tha aapka signature dialogue: “Shabaash, lage raho!” followed by some genuinely sharp suggestion jo model ko aur better bana deta. Aapne mujhe kabhi yeh feel nahi karaya ki mai kuch unnecessary try kar rahi hu; instead, you gave me the confidence that experimenting is always worth it.\n\nAur haan, aapka wo advice mai kabhi nahi bhool sakti: 'Kuch aisa banao jo aaj tak kisi ne na banaya ho.' Maine tab socha tha ki Bhaiya, agar kisi ne banaya hi nahi hai, toh mujhe kaise pata hoga ki banana kya hai?! That line stuck with me, and abhi tak mai figure out karne ki koshish kar rahi hu ki aap mujhse kaunsa spaceship invent karwana chahte the! Shittt yaar ye work krna reh gya. Karega karega ek din ye v launch kr denge. Khushhh??\n\nPar work conversations ke alawa, what I will cherish even more is how genuinely caring you are outside the office screen. Hamara ghar paas hona turned out to be such a blessing. Wo bike rides, unme hone wali casual baatein, aur especially wo election day jab office khula tha and you went out of your way to make sure I got picked up and dropped back safely. Bohot kam log hote hain jo doosro ki safety aur comfort ka itna thoughtfully dhyaan rakhte hain without making a big deal out of it (princess treatment hehehe). That showed me the kind of genuine human being you are.\n\nNow keeping it short, So Whether it was debugging my wild AI theories, giving me impossible invention challenges, or just being the elder brother who made sure my safety, you were someone I knew I could count on blindly.\n\nThank you, for every 'Shabaash', every conversation, and every single ride. Workplace se alag, having you as a brother figure has been one of the sweetest parts of my training. Stay exactly this grounded and awesome, and please keep rooting for my crazy tech ideas!\n\nYESSS, BIRYANII BAAKI H. MAI BHULUNGI NAIII. \n\nStay safe, healthy and take care. KEEP RUNNING!!!!!”
+                note: "Debansu Bhaiya, I think one of the nicest things about talking to you was that it was always so easy. You have this very calm and friendly way of talking that somehow makes even a random conversation feel comfortable. You have this effortless, calm composure that instantly puts anyone at ease chahe kaam ki serious baat ho ya bas koi random bakbak.\n\nI especially loved running to you with all my wacky AI agents, automation scripts, aur experiments. Aadhe time mai itni overexcited hoti thi ki bina saas liye poora logic bol jaati thi (still u understood everything), aur aap aaram se poori baat sunte the. Fir aata tha aapka signature dialogue: “Shabaash, lage raho!” followed by some genuinely sharp suggestion jo model ko aur better bana deta. Aapne mujhe kabhi yeh feel nahi karaya ki mai kuch unnecessary try kar rahi hu; instead, you gave me the confidence that experimenting is always worth it.\n\nAur haan, aapka wo advice mai kabhi nahi bhool sakti: 'Kuch aisa banao jo aaj tak kisi ne na banaya ho.' Maine tab socha tha ki Bhaiya, agar kisi ne banaya hi nahi hai, toh mujhe kaise pata hoga ki banana kya hai?! That line stuck with me, and abhi tak mai figure out karne ki koshish kar rahi hu ki aap mujhse kaunsa spaceship invent karwana chahte the! Shittt yaar ye work krna reh gya. Karega karega ek din ye v launch kr denge. Khushhh??\n\nPar work conversations ke alawa, what I will cherish even more is how genuinely caring you are outside the office screen. Hamara ghar paas hona turned out to be such a blessing. Wo bike rides, unme hone wali casual baatein, aur especially wo election day jab office khula tha and you went out of your way to make sure I got picked up and dropped back safely. Bohot kam log hote hain jo doosro ki safety aur comfort ka itna thoughtfully dhyaan rakhte hain without making a big deal out of it (princess treatment hehehe). That showed me the kind of genuine human being you are.\n\nNow keeping it short, So Whether it was debugging my wild AI theories, giving me impossible invention challenges, or just being the elder brother who made sure my safety, you were someone I knew I could count on blindly.\n\nThank you, for every 'Shabaash', every conversation, and every single ride. Workplace se alag, having you as a brother figure has been one of the sweetest parts of my training. Stay exactly this grounded and awesome, and please keep rooting for my crazy tech ideas!\n\nYESSS, BIRYANII BAAKI H. MAI BHULUNGI NAIII.\n\nStay safe, healthy and take care. KEEP RUNNING!!!!!"
             },
 
             {
                 name: "Rishab Bhaiya",
                 pin: "EOD",
-                note: "Rishab Bhaiya, our relationship was never really a typical colleague relationship. You were basically the elder brother jisko roz irritate karne ka birthright sirf mera tha. Maine aapko zarurat se zyada tease kiya hai, faltu jokes maare hain, aur I am 100% sure ki aapse baat karte-karte maine do-teen punches bhi laga diye hain. Fir bhi aapka wo calm, patient, aur 'chalo jhel lete hain' wala smile kabhi gayab nahi hua.\n\nAur wo phase kaise bhool sakti hu jab cold ki wajah se meri aawaz poori chali gayi thi? That was your golden hour! Aap pure maze le rahe the: 'Come on, ab bolo na... ab kyu chup ho?' But the day my voice came back, I made sure desk par itna shor ho ki pichle saare silent dino ka hisaab barabar ho jaye! \n\nFir aata hai humara everyday threat: 'Bhaiya, mai aapki EOD report automate kar rahi hu.' Aur aapka instant panic: 'Nahi mat kar n, meri naukri chali jayegi, use chhod de!' Wo daily banter was genuinely hilarious. But on a serious note, jab maine aapko bataya ki meri training khatam ho rahi hai aur aapne bina soche turant kaha 'Arre mat jaa na, extend karwa lo, mat chhod ke jao' and u manifestation power meri extend ho v gyi. Bhai apna power ache jgh use kro “don’t include me”. But that was the sweetest moments. .\n\nThank you for being such an incredible sport, for never minding my continuous bakbak, and for being the sweetest elder brother figure on the floor. Desk thoda shaant ho jayega, but keep watching your back. aapki EOD report abhi bhi automated hone ke poore danger me hai!\n\nTake care, Bhaiya, and don't miss me too much!"
+                note: "Rishab Bhaiya, our relationship was never really a typical colleague relationship. You were basically the elder brother jisko roz irritate karne ka birthright sirf mera tha. Maine aapko zarurat se zyada tease kiya hai, faltu jokes maare hain, aur I am 100% sure ki aapse baat karte-karte maine do-teen punches bhi laga diye hain. Fir bhi aapka wo calm, patient, aur 'chalo jhel lete hain' wala smile kabhi gayab nahi hua.\n\nAur wo phase kaise bhool sakti hu jab cold ki wajah se meri aawaz poori chali gayi thi? That was your golden hour! Aap pure maze le rahe the: 'Come on, ab bolo na... ab kyu chup ho?' But the day my voice came back, I made sure desk par itna shor ho ki pichle saare silent dino ka hisaab barabar ho jaye!\n\nFir aata hai humara everyday threat: 'Bhaiya, mai aapki EOD report automate kar rahi hu.' Aur aapka instant panic: 'Nahi mat kar n, meri naukri chali jayegi, use chhod de!' Wo daily banter was genuinely hilarious. But on a serious note, jab maine aapko bataya ki meri training khatam ho rahi hai aur aapne bina soche turant kaha 'Arre mat jaa na, extend karwa lo, mat chhod ke jao' and u manifestation power meri extend ho v gyi. Bhai apna power ache jgh use kro “don’t include me”. But that was the sweetest moments. .\n\nThank you for being such an incredible sport, for never minding my continuous bakbak, and for being the sweetest elder brother figure on the floor. Desk thoda shaant ho jayega, but keep watching your back. aapki EOD report abhi bhi automated hone ke poore danger me hai!\n\nTake care, Bhaiya, and don't miss me too much!"
             },
             
             {
@@ -772,7 +791,7 @@
             {
                 name: "Anup Bhaiya (PMS)",
                 pin: "Chill Us",
-                note: "Anup Bhaiya,\n\nyou were one of those people who somehow made the office feel like a place where work and fun could happily exist together. Pehle din se humara vibe itna naturally match ho gaya tha, and you always treated me just like your annoying little sister. Floor par shor machana ho, cafe me timepass karna ho, ya lift me aate-jaate random drama humne har jagah masti dhoond hi li! I don't think humne kabhi koi formal 'professional' conversation ki bhi hogi, because within two seconds it inevitably turned into pure roasting or bakbak.\n\nAur wo Women's Day wali KitKat? It may have been a simple gesture for you, par maine uska wrapper aaj tak sambhal kar rakha hai which probably tells you how much these small sibling moments meant to me. You made everyday office life so much brighter and lively. \n\nThank you for all the jokes, the teasing, and the constant sibling support. Please stay exactly this crazy and fun, Bhaiya!"
+                note: "Anup Bhaiya,\n\nyou were one of those people who somehow made the office feel like a place where work and fun could happily exist together. Pehle din se humara vibe itna naturally match ho gaya tha, and you always treated me just like your annoying little sister. Floor par shor machana ho, cafe me timepass karna ho, ya lift me aate-jaate random drama humne har jagah masti dhoond hi li! I don't think humne kabhi koi formal 'professional' conversation ki bhi hogi, because within two seconds it inevitably turned into pure roasting or bakbak.\n\nAur wo Women's Day wali KitKat? It may have been a simple gesture for you, par maine uska wrapper aaj tak sambhal kar rakha hai which probably tells you how much these small sibling moments meant to me. You made everyday office life so much brighter and lively.\n\nThank you for all the jokes, the teasing, and the constant sibling support. Please stay exactly this crazy and fun, Bhaiya!"
             },
 
             {
@@ -782,10 +801,9 @@
             }
         ];
 
-        // Populate Cards Grid
-        const cardsContainer = document.getElementById("cards-grid");
-
-        if (cardsContainer) {
+        function renderCards() {
+            const cardsContainer = document.getElementById("cards-grid");
+            if (!cardsContainer) return;
             cardsContainer.innerHTML = "";
 
             teamData.forEach(person => {
@@ -798,19 +816,14 @@
                 card.onclick = () => requestCardAccess(person);
 
                 card.innerHTML = `
-                    <!-- Envelope Flap Geometry -->
                     <svg class="absolute top-0 inset-x-0 w-full h-12 text-white/[0.04] group-hover:text-purple-400/10 transition-colors pointer-events-none" viewBox="0 0 100 40" preserveAspectRatio="none">
                         <polygon points="0,0 100,0 50,38" fill="currentColor" stroke="rgba(255,255,255,0.08)" stroke-width="0.8" />
                     </svg>
-
-                    <!-- Eureka Wax Stamp -->
                     <div class="relative z-10 mt-5 pointer-events-none">
                         <div class="w-14 h-14 rounded-full wax-seal flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                             <img src="images-removebg-preview (1).png" alt="Eureka Stamp" class="w-9 h-9 object-contain stamp-graphic group-hover:opacity-100 transition-opacity" />
                         </div>
                     </div>
-
-                    <!-- Recipient Name -->
                     <div class="relative z-10 my-auto px-1 w-full pointer-events-none">
                         <p class="text-[9px] font-mono tracking-widest text-purple-300/60 uppercase mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             Sealed For
@@ -819,14 +832,11 @@
                             ${person.name}
                         </h3>
                     </div>
-
-                    <!-- Bottom Perforated Edge -->
                     <div class="relative z-10 w-full pt-2 border-t border-dashed border-white/10 group-hover:border-purple-400/30 flex items-center justify-between text-zinc-500 group-hover:text-purple-300 transition-colors pointer-events-none">
                         <span class="text-[9px] font-mono tracking-widest uppercase">MEMO</span>
                         <span class="text-xs transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                     </div>
                 `;
-
                 cardsContainer.appendChild(card);
             });
         }
@@ -835,22 +845,17 @@
             document.getElementById('modal-name').innerText = person.name;
 
             const msg = document.getElementById('modal-message');
-
             msg.style.whiteSpace = 'pre-line';
             msg.style.overflowY = 'auto';
             msg.style.flex = '1 1 auto';
             msg.style.minHeight = '0';
             msg.style.maxHeight = '100%';
             msg.style.paddingRight = '12px';
-
-            // Insert entire text immediately
             msg.textContent = person.note;
 
-            // Trigger smooth fade & slide-up animation
             msg.classList.remove('animate-letter-fade');
             void msg.offsetWidth;
             msg.classList.add('animate-letter-fade');
-
             msg.scrollTop = 0;
 
             const btn = document.getElementById('reply-btn');
@@ -863,11 +868,9 @@
             overlay.classList.add('flex');
         }
 
-        // --- Passcode Protection Controller ---
         let pendingMemo = null;
 
         function requestCardAccess(person) {
-            // If entry has no PIN, open immediately
             if (!person.pin) {
                 openModal(person);
                 return;
@@ -910,7 +913,6 @@
             }
         }
 
-        // Auto-check on 4-digit entry so user doesn't have to press enter
         function checkPinLength() {
             const input = document.getElementById('pin-input');
             if (pendingMemo && input.value.length === String(pendingMemo.pin).length) {
@@ -924,7 +926,6 @@
             pendingMemo = null;
         }
 
-        // Close on clicking modal backdrop
         window.addEventListener('click', (e) => {
             const pinModal = document.getElementById('pin-modal');
             if (e.target === pinModal) closePinModal();
@@ -980,14 +981,19 @@
         function submitGuestbook(e) {
             e.preventDefault();
             const btn = document.getElementById('gb-btn');
-            btn.innerText = "Added to Ledger ✓"; btn.classList.remove('bg-white', 'text-black'); btn.classList.add('bg-purple-500', 'text-white');
+            btn.innerText = "Added to Ledger ✓"; 
+            btn.classList.remove('bg-white', 'text-black'); 
+            btn.classList.add('bg-purple-500', 'text-white');
             setTimeout(() => { 
-                closeGuestbook(); btn.innerText = "Sign Guestbook"; btn.classList.add('bg-white', 'text-black'); btn.classList.remove('bg-purple-500', 'text-white'); 
-                document.getElementById('gb-name').value=''; document.getElementById('gb-msg').value=''; 
+                closeGuestbook(); 
+                btn.innerText = "Sign Guestbook"; 
+                btn.classList.add('bg-white', 'text-black'); 
+                btn.classList.remove('bg-purple-500', 'text-white'); 
+                document.getElementById('gb-name').value=''; 
+                document.getElementById('gb-msg').value=''; 
             }, 1500);
         }
 
-        // --- Terminal Status Modal Logic ---
         function openEasterEgg(id) {
             const modal = document.getElementById(id);
             if (modal) {
@@ -1009,14 +1015,16 @@
             if (e.target === modal) closeEasterEgg('terminal-status-modal');
         });
 
-        // Robust DOM attachment
+        // Initialize cards and bindings when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
+            renderCards();
             const enterBtn = document.getElementById('enter-btn');
             if (enterBtn) {
-                enterBtn.addEventListener('click', () => enterExperience());
+                enterBtn.onclick = () => enterExperience();
             }
         });
     </script>
+    
     <!-- Terminal Passcode Verification Modal -->
     <div id="pin-modal" style="display: none;" class="fixed inset-0 z-[10001] bg-black/85 backdrop-blur-md items-center justify-center p-4">
         <div id="pin-card-box" class="modal-glass relative w-full max-w-sm rounded-2xl p-7 font-mono text-center shadow-[0_20px_60px_rgba(0,0,0,0.85)] border border-purple-500/30 bg-[#0c0d18]">
