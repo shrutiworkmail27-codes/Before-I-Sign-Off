@@ -259,18 +259,18 @@
     <!-- The Desk Ticker -->
     <div id="desk-ticker" class="ticker-bar py-3.5 text-base sm:text-lg font-mono tracking-wider border-y border-white/10 bg-[#080911]/95 backdrop-blur-md overflow-hidden whitespace-nowrap select-none">
         <div class="ticker-content inline-block">
-            EUREKA DESK INTERMISSION &nbsp;&nbsp;•&nbsp;&nbsp;
+            EUREKA DESK SIGN-OFF &nbsp;&nbsp;•&nbsp;&nbsp;
             VALUATION DCFs <span class="text-rose-400 font-bold">▲ BALANCED BY HOPE</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             HARDCODED PLUGS <span class="text-amber-400 font-bold">◈ CLASSIFIED</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             3:29 PM SPRINT <span class="text-emerald-400 font-bold">▲ RECORD HIGH</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             DESK CHAI TAB <span class="text-rose-400 font-bold">▲ FOREVER UNPAID</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             TERMINAL PATIENCE <span class="text-rose-400 font-bold">▼ 404 NOT FOUND</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             MANAGEMENT GUIDANCE <span class="text-amber-400 font-bold">▼ SURVIVED</span> &nbsp;&nbsp;•&nbsp;&nbsp;
-            MY CHAIR <span class="text-purple-400 font-bold">★ RESERVED TILL RETURN</span> &nbsp;&nbsp;•&nbsp;&nbsp;
-            EXCEL HEURISTICS <span class="text-rose-400 font-bold">▼ EXPIRED</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            EXCEL FORMULAS <span class="text-purple-400 font-bold">★ ROW 847 LOCKED</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            CONCALL TRANSCRIPTS <span class="text-amber-400 font-bold">▼ SKIMMED AT 2X</span> &nbsp;&nbsp;•&nbsp;&nbsp;
             AUDIT TRAIL <span class="text-rose-400 font-bold">▼ DELETED BEFORE LOGOUT</span> &nbsp;&nbsp;•&nbsp;&nbsp;
-            TEMPORARY PEACE <span class="text-rose-400 font-bold">▼ EXPIRING SOON</span> &nbsp;&nbsp;•&nbsp;&nbsp;
-            FULL-TIME COMEBACK <span class="text-purple-400 font-bold">★ NON-NEGOTIABLE</span>
+            SECTOR MODELS <span class="text-emerald-400 font-bold">▲ SQUARED OFF</span> &nbsp;&nbsp;•&nbsp;&nbsp;
+            WORKSTATION STATUS <span class="text-purple-400 font-bold">★ OFFLINE</span>
         </div>
     </div>
 
@@ -306,7 +306,7 @@
             <!-- Subject & Meta Section -->
             <div class="px-6 py-5 border-b border-zinc-200/80 bg-zinc-50/60">
                 <h1 class="text-lg sm:text-xl font-bold tracking-tight text-zinc-900 whitespace-nowrap overflow-hidden text-ellipsis mb-3">
-                    Sign-off &amp; Intermission &mdash; Industrial Training
+                   Closing Bell &mdash; CA Industrial Training
                 </h1>
 
                 <div class="space-y-1 text-xs text-zinc-600 font-mono">
@@ -558,17 +558,15 @@
             </div>
 
             <div class="mt-auto pt-6 border-t border-white/10 flex-shrink-0" id="reply-section">
-                <p class="text-[10px] font-bold tracking-[0.1em] text-gray-400 uppercase mb-3">
-                    Advice for CA Finals
+                <p class="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+                    Advice &amp; Blessings for the Journey Ahead
                 </p>
-
-                <form id="reply-form" onsubmit="submitReply(event)" class="flex gap-2">
-                    <input type="text" id="reply-input" placeholder="Leave a blessing or advice..." class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-purple-400" required>
-
-                    <button type="submit" id="reply-btn" class="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors">
-                        Send
-                    </button>
-                </form>
+                <form id="reply-form" onsubmit="handleMailtoSubmit(event)" class="flex gap-3">
+                <input type="text" id="reply-input" placeholder="Drop a blessing, piece of advice, or desk note..." class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-purple-400" required>
+                <button type="submit" id="reply-btn" class="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 whitespace-nowrap transition-colors cursor-pointer">
+                    Send
+                </button>
+            </form>
             </div>
 
             <button onclick="downloadNote()" id="download-btn" title="Save as Image" class="absolute top-8 right-16 text-gray-400 hover:text-white transition-colors cursor-pointer">
@@ -1074,6 +1072,27 @@
                 closeEasterEgg('terminal-status-modal');
             }
         });
+
+        function handleMailtoSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('reply-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+        
+            // Get the name of the person from the current open modal
+            const personName = document.getElementById('modal-name')?.innerText || 'Eureka Team Member';
+            
+            const recipient = 'shruti.workmail27@gmail.com';
+            const subject = encodeURIComponent(`Desk Note & Blessings — ${personName}`);
+            const body = encodeURIComponent(message);
+        
+            // Opens their native mail client pre-addressed with the message body
+            window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+            
+            // Reset the input field
+            input.value = '';
+        }
     </script>
     
     <!-- Terminal Passcode Verification Modal -->
